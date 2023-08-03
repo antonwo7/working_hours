@@ -3,6 +3,7 @@ import * as authActions from './../actions/auth'
 import store from './index'
 import { authCheckServerRequest, getTokenClientRequest, loginServerRequest, removeTokenClientRequest, saveTokenClientRequest } from "../functions/auth"
 import {IAuthState, TAuthAction} from "../types/auth";
+import {asyncFunction} from "../functions/common";
 
 const initialState: IAuthState = {
     authUser: null,
@@ -15,8 +16,8 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
     switch (action.type) {
         case EAuthActionTypes.AUTH__LOGIN: {
 
-            if ('email' in action && 'password' in action) {
-                loginServerRequest(action.email, action.password, (response: { result: boolean, token: string | null }) => {
+            if ('username' in action && 'password' in action) {
+                loginServerRequest(action.username, action.password, (response: { result: boolean, token: string | null }) => {
                     if (response.result && response.token){
                         saveTokenClientRequest(response.token)
                         store.dispatch(authActions.setLoggedAction())
@@ -52,8 +53,10 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
 
         case EAuthActionTypes.AUTH__CHECK: {
             const token = getTokenClientRequest()
-            console.log('token', token)
-            if (!token) return state
+            if (!token) {
+                asyncFunction(() => store.dispatch(authActions.hideLoadingAction()))
+                return state
+            }
 
             authCheckServerRequest(token, (response: { result: boolean }) => {
                 const isLogged = response.result

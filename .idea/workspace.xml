@@ -11,31 +11,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70e8a3b-b920-429c-a390-55fefe3003b9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/assets/css/app.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/assets/css/tailwind.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Content.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Main.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/Login.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/Logo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/Navigation.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/PageLoading.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/icons/CloseIcon.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/icons/LoadingIcon.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/icons/LogoutIcon.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/icons/MenuIcon.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/icons/PageLoadingIcon.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/pages/MainFormPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/tailwind.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/functions/common.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/actions/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/common.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/common/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/functions.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/reducers/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/auth.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/types/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/types/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/common.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/types/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/authController.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +89,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1691000186092</updated>
-      <workItem from="1691000188681" duration="35579000" />
+      <workItem from="1691000188681" duration="35981000" />
+      <workItem from="1691096732439" duration="1830000" />
     </task>
     <servers />
   </component>
@@ -120,31 +107,32 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2021" y="408" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1691082015461">
       <screen x="0" y="0" width="3002" height="1210" />
     </state>
     <state x="2021" y="408" key="#com.intellij.fileTypes.FileTypeChooser/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691082015461" />
-    <state width="1456" height="334" key="GridCell.Tab.0.bottom" timestamp="1691082740449">
+    <state width="1456" height="334" key="GridCell.Tab.0.bottom" timestamp="1691091117422">
       <screen x="0" y="0" width="3002" height="1210" />
     </state>
-    <state width="1456" height="334" key="GridCell.Tab.0.bottom/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691082740449" />
-    <state width="1456" height="334" key="GridCell.Tab.0.center" timestamp="1691082740449">
+    <state width="1456" height="334" key="GridCell.Tab.0.bottom/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691091117422" />
+    <state width="1456" height="334" key="GridCell.Tab.0.center" timestamp="1691091117422">
       <screen x="0" y="0" width="3002" height="1210" />
     </state>
-    <state width="1456" height="334" key="GridCell.Tab.0.center/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691082740449" />
-    <state width="1456" height="334" key="GridCell.Tab.0.left" timestamp="1691082740449">
+    <state width="1456" height="334" key="GridCell.Tab.0.center/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691091117422" />
+    <state width="1456" height="334" key="GridCell.Tab.0.left" timestamp="1691091117422">
       <screen x="0" y="0" width="3002" height="1210" />
     </state>
-    <state width="1456" height="334" key="GridCell.Tab.0.left/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691082740449" />
-    <state width="1456" height="334" key="GridCell.Tab.0.right" timestamp="1691082740449">
+    <state width="1456" height="334" key="GridCell.Tab.0.left/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691091117422" />
+    <state width="1456" height="334" key="GridCell.Tab.0.right" timestamp="1691091117422">
       <screen x="0" y="0" width="3002" height="1210" />
     </state>
-    <state width="1456" height="334" key="GridCell.Tab.0.right/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691082740449" />
-    <state x="1954" y="339" width="583" height="534" key="find.popup" timestamp="1691090693454">
+    <state width="1456" height="334" key="GridCell.Tab.0.right/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691091117422" />
+    <state x="1954" y="339" width="583" height="534" key="find.popup" timestamp="1691096997120">
       <screen x="0" y="0" width="3002" height="1210" />
     </state>
-    <state x="1954" y="339" width="583" height="534" key="find.popup/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691090693454" />
+    <state x="1954" y="339" width="583" height="534" key="find.popup/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691096997120" />
   </component>
 </project>

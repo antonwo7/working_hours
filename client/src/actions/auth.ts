@@ -2,10 +2,10 @@ import { EAuthActionTypes } from '../reducers/types';
 import store from '../reducers';
 import { IAuthLoginAction } from "../types/auth";
 
-export function loginAction(email: string, password: string, callback?: Function): IAuthLoginAction {
+export function loginAction(username: string, password: string, callback?: Function): IAuthLoginAction {
     return {
         type: EAuthActionTypes.AUTH__LOGIN,
-        email,
+        username,
         password,
         callback
     }

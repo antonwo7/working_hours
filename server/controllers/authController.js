@@ -39,6 +39,7 @@ class authController {
             const User = await userInit()
 
             const { username, password } = req.body
+            console.log('req.body', req.body);
             const user = await User.findOne({ where: { username }, attributes: ['id', 'username', 'password', 'role', 'name', 'nif', 'naf', 'contract_code'] })
             if (!user) {
                 return res.status(400).json({ message: 'User not found' })

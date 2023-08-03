@@ -7,7 +7,7 @@ export interface IAuthDefaultAction {
     callback?: Function | undefined
 }
 export interface IAuthLoginAction extends IAuthDefaultAction {
-    email: string
+    username: string
     password: string
 }
 
@@ -33,7 +33,7 @@ export interface IAuthState {
     loading: boolean
 }
 export interface ILoginState {
-    email: string
+    username: string
     password: string
     loading: boolean
     submitEnable: boolean

@@ -1,7 +1,7 @@
-import { getAppUrl } from "./functions";
+require('dotenv').config()
 
-export const loginAPIUrl = getAppUrl() + 'api/auth/login'
-export const registrationAPIUrl = getAppUrl() + 'api/auth/registration'
-export const tokenValidationAPIUrl = getAppUrl() + 'api/auth/validation.php'
+export const loginAPIUrl = process.env.API_URL + 'auth/login/'
+export const registrationAPIUrl = process.env.API_URL + 'api/auth/registration'
+export const tokenValidationAPIUrl = process.env.API_URL + 'api/auth/validation.php'
 
-export const getUsersAPIUrl = getAppUrl() + 'api/users/get_users'
+export const getUsersAPIUrl = process.env.API_URL + 'api/users/get_users'

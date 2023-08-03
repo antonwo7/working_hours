@@ -14,7 +14,7 @@ class Login extends Component<ILoginProps & ILoginDispatchProps, ILoginState> {
         super(props)
 
         this.state = {
-            email: '',
+            username: '',
             password: '',
             loading: false,
             submitEnable: false,
@@ -22,7 +22,7 @@ class Login extends Component<ILoginProps & ILoginDispatchProps, ILoginState> {
     }
 
     checkSubmitEnable(): boolean {
-        return !!this.state.email && !!this.state.password
+        return !!this.state.username && !!this.state.password
     }
 
     inputChange(value: string, field: keyof ILoginState): void {
@@ -32,12 +32,12 @@ class Login extends Component<ILoginProps & ILoginDispatchProps, ILoginState> {
     async onSubmit(): Promise<void> {
         this.setState({loading: true})
 
-        if (!this.state.email || !this.state.password) {
+        if (!this.state.username || !this.state.password) {
             return
         }
 
         setTimeout((): void => {
-            this.props.loginAction(this.state.email, this.state.password, () => {
+            this.props.loginAction(this.state.username, this.state.password, () => {
                 this.setState({loading: false})
             })
         }, 1400)
@@ -66,9 +66,9 @@ class Login extends Component<ILoginProps & ILoginDispatchProps, ILoginState> {
                                                         type="text"
                                                         className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                                         id="exampleFormControlInput1"
-                                                        placeholder="Email"
-                                                        value={this.state.email}
-                                                        onChange={e => this.inputChange(e.target.value, 'email')}
+                                                        placeholder="Username"
+                                                        value={this.state.username}
+                                                        onChange={e => this.inputChange(e.target.value, 'username')}
                                                     />
                                                 </div>
                                                 <div className="mb-4">

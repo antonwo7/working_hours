@@ -11,43 +11,43 @@ export function loginAction(email: string, password: string, callback?: Function
     }
 }
 
-export function checkLoggedUser(){
+export function checkLoggedUserAction(){
     return {
         type: EAuthActionTypes.AUTH__CHECK
     }
 }
 
-export function logoutUser(){
+export function logoutUserAction(){
     return {
         type: EAuthActionTypes.AUTH__LOGOUT
     }
 }
 
-export function hideError(){
+export function hideErrorAction(){
     return {
         type: EAuthActionTypes.AUTH__HIDE_ERROR
     }
 }
 
-export function setLogged(){
+export function setLoggedAction(){
     return {
         type: EAuthActionTypes.AUTH__SET_LOGGED
     }
 }
 
-export function loginFailed(){
+export function loginFailedAction(){
     return {
         type: EAuthActionTypes.AUTH__LOGIN_FAILED
     }
 }
 
-export function setLoading(){
+export function setLoadingAction(){
     return {
         type: EAuthActionTypes.AUTH__SET_LOADING
     }
 }
 
-export function hideLoading(){
+export function hideLoadingAction(){
     return {
         type: EAuthActionTypes.AUTH__HIDE_LOADING
     }

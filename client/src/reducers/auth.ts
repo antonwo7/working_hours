@@ -19,9 +19,9 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
                 loginServerRequest(action.email, action.password, (response: { result: boolean, token: string | null }) => {
                     if (response.result && response.token){
                         saveTokenClientRequest(response.token)
-                        store.dispatch(authActions.setLogged())
+                        store.dispatch(authActions.setLoggedAction())
                     } else {
-                        store.dispatch(authActions.loginFailed())
+                        store.dispatch(authActions.loginFailedAction())
                     }
 
                     action.callback && action.callback()
@@ -41,7 +41,7 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
             return { ...state, errorShown: false}
 
         case EAuthActionTypes.AUTH__LOGIN_FAILED: {
-            setTimeout(() => store.dispatch(authActions.hideError()), 3000)
+            setTimeout(() => store.dispatch(authActions.hideErrorAction()), 3000)
 
             return { ...state, errorShown: true, isLogged: false}
         }
@@ -52,15 +52,16 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
 
         case EAuthActionTypes.AUTH__CHECK: {
             const token = getTokenClientRequest()
+            console.log('token', token)
             if (!token) return state
 
             authCheckServerRequest(token, (response: { result: boolean }) => {
                 const isLogged = response.result
                 if (isLogged){
-                    store.dispatch(authActions.setLogged())
+                    store.dispatch(authActions.setLoggedAction())
                 }
 
-                store.dispatch(authActions.hideLoading())
+                store.dispatch(authActions.hideLoadingAction())
             })
 
             return state

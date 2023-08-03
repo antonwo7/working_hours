@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import store from './reducers/index';
+import Login from "./components/common/Login";
+import Main from "./components/Main";
+import {checkLoggedUserAction, setLoadingAction} from "./actions/auth";
+import PageLoading from "./components/common/PageLoading";
+import {IAppProps, IState} from "./types/main";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+store.dispatch(setLoadingAction())
+store.dispatch(checkLoggedUserAction())
+
+class App extends Component<IAppProps> {
+
+  render() {
+    return (
+        <>
+          {this.props.loading ? <PageLoading /> : <>
+            {this.props.isLogged ? <Main /> : <Login />}
+          </>}
+        </>
+    )
+  }
 }
 
-export default App;
+export default connect(
+    (state: IState) => {
+      return {
+        authUser: null,
+        isLogged: state.auth.isLogged,
+        loading: state.auth.loading
+      }
+    },
+    {}
+)(App);

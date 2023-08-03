@@ -13,9 +13,28 @@ export interface IAuthLoginAction extends IAuthDefaultAction {
 
 export type TAuthAction = IAuthDefaultAction | IAuthLoginAction
 
+
+
+
+export interface ILoginProps {
+    opacity?: boolean,
+    errorShown: boolean
+}
+export interface ILoginDispatchProps {
+    loginAction: Function
+}
+
+
+
 export interface IAuthState {
     authUser: Object | null
     isLogged: boolean
     errorShown: boolean
     loading: boolean
+}
+export interface ILoginState {
+    email: string
+    password: string
+    loading: boolean
+    submitEnable: boolean
 }

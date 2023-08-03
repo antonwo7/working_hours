@@ -8,6 +8,15 @@ export interface IDefaultAction {
     callback?: Function | undefined
 }
 
+export interface IUserData {
+    name: string
+    username: string
+    nif?: string
+    naf?: string
+    contract_code?: string
+    role: string | null
+}
+
 
 export type TPageProps = {
     loading?: boolean

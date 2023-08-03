@@ -4,6 +4,7 @@ import store from './index'
 import { authCheckServerRequest, getTokenClientRequest, loginServerRequest, removeTokenClientRequest, saveTokenClientRequest } from "../functions/auth"
 import {IAuthState, TAuthAction} from "../types/auth";
 import {asyncFunction} from "../functions/common";
+import {IUserData} from "../types/main";
 
 const initialState: IAuthState = {
     authUser: null,
@@ -17,8 +18,8 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
         case EAuthActionTypes.AUTH__LOGIN: {
 
             if ('username' in action && 'password' in action) {
-                loginServerRequest(action.username, action.password, (response: { result: boolean, token: string | null }) => {
-                    if (response.result && response.token){
+                loginServerRequest(action.username, action.password, (response: { user: IUserData, result: boolean, token: string | null }) => {
+                    if (response.result && response.token && response.user){
                         saveTokenClientRequest(response.token)
                         store.dispatch(authActions.setLoggedAction())
                     } else {
@@ -31,6 +32,10 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
 
             return state
         }
+
+        case EAuthActionTypes.AUTH__SET_AUTH_USER:
+            if (!('user' in action)) return state
+            return { ...state, authUser: action.user}
 
         case EAuthActionTypes.AUTH__SET_LOGGED:
             return { ...state, isLogged: true}
@@ -54,8 +59,7 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
         case EAuthActionTypes.AUTH__CHECK: {
             const token = getTokenClientRequest()
             if (!token) {
-                asyncFunction(() => store.dispatch(authActions.hideLoadingAction()))
-                return state
+                return { ...state, authUser: null, isLogged: false, loading: false}
             }
 
             authCheckServerRequest(token, (response: { result: boolean }) => {

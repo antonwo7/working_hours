@@ -22,8 +22,11 @@ const TabContentItem: FC<ITabContentItemProps> = (props: ITabContentItemProps) =
 
 class Content extends Component<TContentProps> {
 
-    render() {
+    constructor(props: TContentProps) {
+        super(props)
+    }
 
+    render() {
         return (
             <>
                 {this.props.loading ? <PageLoading /> : (

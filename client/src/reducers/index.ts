@@ -2,9 +2,11 @@ import { combineReducers, applyMiddleware, createStore, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 
 import auth from './auth';
+import common from './common';
 
 const reducer = combineReducers({
     auth,
+    common
 })
 
 let middleware = [reduxThunk]

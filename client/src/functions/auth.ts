@@ -1,6 +1,4 @@
 import { loginAPIUrl, tokenValidationAPIUrl } from "../config";
-import store from "../reducers";
-import * as actions from "../actions/auth";
 
 export function isAuthClientRequest() {
     const token = localStorage.getItem('token')
@@ -38,11 +36,11 @@ export function removeTokenClientRequest() {
     localStorage.removeItem('token')
 }
 
-export async function loginServerRequest(email: string, password: string, callback?: Function | null): Promise<boolean>{
+export async function loginServerRequest(username: string, password: string, callback?: Function | null): Promise<boolean>{
     fetch(loginAPIUrl, {
         method: 'POST',
         body: JSON.stringify({
-            email,
+            username,
             password,
         }),
         headers: {

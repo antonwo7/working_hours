@@ -10,7 +10,7 @@ import 'tw-elements';
 import './assets/css/app.css';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 
 root.render(

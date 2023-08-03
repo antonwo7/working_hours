@@ -1,4 +1,5 @@
 import { EAuthActionTypes } from "../reducers/types";
+import {IUserData} from "./main";
 
 export type TAuthActionType = (typeof EAuthActionTypes)[keyof typeof EAuthActionTypes]
 
@@ -10,8 +11,11 @@ export interface IAuthLoginAction extends IAuthDefaultAction {
     username: string
     password: string
 }
+export interface IAuthSetAuthUserAction extends IAuthDefaultAction {
+    user: IUserData
+}
 
-export type TAuthAction = IAuthDefaultAction | IAuthLoginAction
+export type TAuthAction = IAuthDefaultAction | IAuthLoginAction | IAuthSetAuthUserAction
 
 
 

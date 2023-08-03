@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b70e8a3b-b920-429c-a390-55fefe3003b9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/actions/auth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/actions/common.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/actions/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/functions.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/functions/auth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/reducers/auth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/reducers/common.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/reducers/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/reducers/types.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/types/auth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/types/common.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/types/main.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/controllers/authController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/models/Role.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/models/User.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routers/authRouter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/services/AuthService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/services/BDService.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2TRJusslr9prySBnMv9A735Bj3m" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/reducers" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\OpenServer\domains\localhost\ilusiak\horario\client\node_modules\typescript\lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\client\src\reducers" />
+      <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\client\src\types" />
+      <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\server\services" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\client\src" />
+      <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\server" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/index.js" working-dir="$PROJECT_DIR$/server">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.index.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b70e8a3b-b920-429c-a390-55fefe3003b9" name="Default Changelist" comment="" />
+      <created>1691000186092</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1691000186092</updated>
+      <workItem from="1691000188681" duration="28258000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="2959" height="337" key="GridCell.Tab.0.bottom" timestamp="1691003154267">
+      <screen x="0" y="0" width="3002" height="1210" />
+    </state>
+    <state width="2959" height="337" key="GridCell.Tab.0.bottom/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691003154267" />
+    <state width="2959" height="337" key="GridCell.Tab.0.center" timestamp="1691003154267">
+      <screen x="0" y="0" width="3002" height="1210" />
+    </state>
+    <state width="2959" height="337" key="GridCell.Tab.0.center/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691003154267" />
+    <state width="2959" height="337" key="GridCell.Tab.0.left" timestamp="1691003154267">
+      <screen x="0" y="0" width="3002" height="1210" />
+    </state>
+    <state width="2959" height="337" key="GridCell.Tab.0.left/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691003154267" />
+    <state width="2959" height="337" key="GridCell.Tab.0.right" timestamp="1691003154267">
+      <screen x="0" y="0" width="3002" height="1210" />
+    </state>
+    <state width="2959" height="337" key="GridCell.Tab.0.right/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691003154267" />
+    <state x="1954" y="339" width="583" height="534" key="find.popup" timestamp="1691067417829">
+      <screen x="0" y="0" width="3002" height="1210" />
+    </state>
+    <state x="1954" y="339" width="583" height="534" key="find.popup/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691067417829" />
+  </component>
+</project>

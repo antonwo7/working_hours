@@ -1,6 +1,7 @@
 import {IAuthState} from "./auth";
 import {ICommonState} from "./common";
-import MainFormPage from "../components/pages/MainFormPage";
+import MainPage from "../components/pages/MainPage";
+import {IUsersState} from "./users";
 
 
 export interface IDefaultAction {
@@ -34,7 +35,7 @@ export interface ITabHeaderItemProps {
 }
 export interface ITabContentItemProps {
     id: string
-    TabComponent: typeof MainFormPage
+    TabComponent: typeof MainPage
     isActive: boolean,
     loading?: boolean,
     activeTab?: string
@@ -47,6 +48,7 @@ export type TContentProps = {
 
 
 export interface IState {
-    auth: IAuthState,
     common: ICommonState
+    auth: IAuthState
+    users: IUsersState,
 }

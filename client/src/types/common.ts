@@ -1,8 +1,8 @@
 import { ECommonActionTypes } from "../reducers/types";
 import {logoutUserAction} from "../actions/auth";
+import {IAuthState} from "./auth";
 
 export type TCommonActionType = (typeof ECommonActionTypes)[keyof typeof ECommonActionTypes]
-
 export type TCommonAction = ICommonDefaultAction | ISetActiveTabCommonAction
 
 export interface ICommonDefaultAction {
@@ -16,9 +16,6 @@ export interface ICommonState {
     loading: boolean
     activeTab: string
 }
-
-
-
 
 
 export interface IPageLoadingProps {

@@ -3,7 +3,7 @@ import { ECommonActionTypes } from "./types";
 
 const initialState: ICommonState = {
     loading: false,
-    activeTab: 'main'
+    activeTab: 'main',
 }
 
 export default function common(state: ICommonState = initialState, action: TCommonAction) {

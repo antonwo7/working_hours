@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {IState, TPageProps} from "../../types/main";
 
-class MainFormPage extends Component<TPageProps> {
+class UserPage extends Component<TPageProps> {
     render() {
         return (
             <section className="h-full gradient-form">
@@ -25,6 +25,5 @@ export default connect(
         return {
             loading: state.common.loading
         }
-    },
-    {}
-)(MainFormPage);
+    },    {}
+)(UserPage);

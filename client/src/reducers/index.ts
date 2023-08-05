@@ -6,7 +6,8 @@ import common from './common';
 
 const reducer = combineReducers({
     auth,
-    common
+    common,
+    users
 })
 
 let middleware = [reduxThunk]

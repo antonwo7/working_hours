@@ -2,19 +2,16 @@ import React, {Component, ComponentType, FC} from 'react';
 import classNames from "classnames";
 import {connect} from "react-redux";
 import PageLoading from "./common/PageLoading";
-import MainFormPage from "./pages/MainFormPage";
+import MainPage from "./pages/MainPage";
 import {IState, ITabContentItemProps, TContentProps} from "../types/main";
+import UsersPage from "./pages/UsersPage";
 
 const TabContentItem: FC<ITabContentItemProps> = (props: ITabContentItemProps) => {
     const {id, isActive = false} = props
-    const TabComponent: typeof MainFormPage = props.TabComponent
+    const TabComponent: typeof MainPage = props.TabComponent
 
     return (
-        <div
-            className={classNames('tab-pane fade', { 'active': isActive, 'show': isActive })}
-            id={id}
-            aria-labelledby="tabs-profile-tab"
-        >
+        <div className={classNames("tab-pane", { 'hidden': !isActive })} id={id}>
             <TabComponent />
         </div>
     )
@@ -29,13 +26,10 @@ class Content extends Component<TContentProps> {
     render() {
         return (
             <>
-                {this.props.loading ? <PageLoading /> : (
-                    <>
-                        <div className="tab-content bg-gray-200 h-full w-full inline-table" id="tabs-tabContent">
-                            <TabContentItem id={'tabs-main'} TabComponent={MainFormPage} isActive={this.props.activeTab === 'main'}/>
-                        </div>
-                    </>
-                )}
+                <div className="bg-gray-200 h-full w-full inline-table hi">
+                    <TabContentItem id={'tabs-main'} TabComponent={MainPage} isActive={this.props.activeTab === 'main'}/>
+                    <TabContentItem id={'tabs-users'} TabComponent={UsersPage} isActive={this.props.activeTab === 'users'}/>
+                </div>
             </>
         );
     }

@@ -1,7 +1,7 @@
 import { EAuthActionTypes } from '../reducers/types';
 import store from '../reducers';
-import {IAuthLoginAction, IAuthSetAuthUserAction} from "../types/auth";
-import {IUserData} from "../types/main";
+import {IAuthLoginAction, IAuthSetAuthUserAction, ICheckLoggedUserAction} from "../types/auth";
+import {IUser} from "../types/users";
 
 export function loginAction(username: string, password: string, callback?: Function): IAuthLoginAction {
     return {
@@ -12,16 +12,18 @@ export function loginAction(username: string, password: string, callback?: Funct
     }
 }
 
-export function setAuthUserAction(user: IUserData): IAuthSetAuthUserAction{
+export function setAuthUserAction(user: IUser): IAuthSetAuthUserAction{
     return {
         type: EAuthActionTypes.AUTH__SET_AUTH_USER,
         user
     }
 }
 
-export function checkLoggedUserAction(){
+export function checkLoggedUserAction(callback?: Function, successCallback?: Function): ICheckLoggedUserAction {
     return {
-        type: EAuthActionTypes.AUTH__CHECK
+        type: EAuthActionTypes.AUTH__CHECK,
+        callback,
+        successCallback
     }
 }
 
@@ -37,9 +39,10 @@ export function hideErrorAction(){
     }
 }
 
-export function setLoggedAction(){
+export function setLoggedAction(user: IUser): IAuthSetAuthUserAction{
     return {
-        type: EAuthActionTypes.AUTH__SET_LOGGED
+        type: EAuthActionTypes.AUTH__SET_LOGGED,
+        user
     }
 }
 

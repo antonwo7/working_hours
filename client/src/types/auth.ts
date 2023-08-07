@@ -1,5 +1,5 @@
 import { EAuthActionTypes } from "../reducers/types";
-import {IUserData} from "./main";
+import {IUser} from "./users";
 
 export type TAuthActionType = (typeof EAuthActionTypes)[keyof typeof EAuthActionTypes]
 
@@ -12,7 +12,13 @@ export interface IAuthLoginAction extends IAuthDefaultAction {
     password: string
 }
 export interface IAuthSetAuthUserAction extends IAuthDefaultAction {
-    user: IUserData
+    user: IUser
+}
+export interface IAuthSetAuthUserAction extends IAuthDefaultAction {
+    user: IUser
+}
+export interface ICheckLoggedUserAction extends IAuthDefaultAction {
+    successCallback: Function | undefined
 }
 
 export type TAuthAction = IAuthDefaultAction | IAuthLoginAction | IAuthSetAuthUserAction
@@ -31,7 +37,7 @@ export interface ILoginDispatchProps {
 
 
 export interface IAuthState {
-    authUser: Object | null
+    authUser: IUser | null
     isLogged: boolean
     errorShown: boolean
     loading: boolean

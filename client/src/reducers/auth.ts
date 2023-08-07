@@ -2,9 +2,9 @@ import { EAuthActionTypes } from './types'
 import * as authActions from './../actions/auth'
 import store from './index'
 import { authCheckServerRequest, getTokenClientRequest, loginServerRequest, removeTokenClientRequest, saveTokenClientRequest } from "../functions/auth"
-import {IAuthState, TAuthAction} from "../types/auth";
-import {asyncFunction} from "../functions/common";
-import {IUserData} from "../types/main";
+import {IAuthState, ICheckLoggedUserAction, TAuthAction} from "../types/auth";
+import {asyncFunction, notEmptyObjectProp} from "../functions/common";
+import {IUser} from "../types/users";
 
 const initialState: IAuthState = {
     authUser: null,
@@ -18,10 +18,10 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
         case EAuthActionTypes.AUTH__LOGIN: {
 
             if ('username' in action && 'password' in action) {
-                loginServerRequest(action.username, action.password, (response: { user: IUserData, result: boolean, token: string | null }) => {
+                loginServerRequest(action.username, action.password, (response: { user: IUser, result: boolean, token: string | null }) => {
                     if (response.result && response.token && response.user){
                         saveTokenClientRequest(response.token)
-                        store.dispatch(authActions.setLoggedAction())
+                        store.dispatch(authActions.setLoggedAction(response.user))
                     } else {
                         store.dispatch(authActions.loginFailedAction())
                     }
@@ -38,7 +38,7 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
             return { ...state, authUser: action.user}
 
         case EAuthActionTypes.AUTH__SET_LOGGED:
-            return { ...state, isLogged: true}
+            return { ...state, isLogged: true, authUser: notEmptyObjectProp('user', action)}
 
         case EAuthActionTypes.AUTH__SET_UNLOGGED:
             return { ...state, isLogged: false}
@@ -62,13 +62,15 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
                 return { ...state, authUser: null, isLogged: false, loading: false}
             }
 
-            authCheckServerRequest(token, (response: { result: boolean }) => {
-                const isLogged = response.result
-                if (isLogged){
-                    store.dispatch(authActions.setLoggedAction())
-                }
+            const { successCallback, callback } = action as ICheckLoggedUserAction
 
-                store.dispatch(authActions.hideLoadingAction())
+            authCheckServerRequest(token, (response: { result: boolean, user: IUser, users: Array<IUser> }) => {
+                const isLogged = response.result
+                if (isLogged && notEmptyObjectProp('user', response)) {
+                    store.dispatch(authActions.setLoggedAction(response.user))
+                    successCallback && store.dispatch(successCallback(response.users))
+                }
+                callback && store.dispatch(callback())
             })
 
             return state

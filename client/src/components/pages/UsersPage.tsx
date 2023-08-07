@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {IState, TPageProps} from "../../types/main";
+import Users from "../sections/Users";
 
 class UserPage extends Component<TPageProps> {
     render() {
@@ -8,9 +9,9 @@ class UserPage extends Component<TPageProps> {
             <section className="h-full gradient-form">
                 <div className="container-fluid px-10 h-full mx-auto mb-1 mt-10 pb-0">
                     <div className="flex justify-center items-center flex-wrap h-full w-full g-6 text-gray-800 mx-auto">
-                        <div className="block bg-white shadow-lg rounded-lg mb-4 w-2/3">
+                        <div className="block bg-white shadow-lg rounded-lg mb-4 w-2/3 relative">
                             <div className="flex p-4 rounded-b dark:border-gray-600 flex-col justify-center w-full">
-
+                                <Users />
                             </div>
                         </div>
                     </div>

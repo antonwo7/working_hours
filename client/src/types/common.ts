@@ -1,6 +1,7 @@
 import { ECommonActionTypes } from "../reducers/types";
 import {logoutUserAction} from "../actions/auth";
 import {IAuthState} from "./auth";
+import {IUser} from "./users";
 
 export type TCommonActionType = (typeof ECommonActionTypes)[keyof typeof ECommonActionTypes]
 export type TCommonAction = ICommonDefaultAction | ISetActiveTabCommonAction
@@ -27,7 +28,8 @@ export interface INavigationProps {
 }
 export interface INavigationDispatchProps {
     setActiveTabAction: Function
-    logoutUserAction: Function
+    logoutUserAction: Function,
+    authUser?: IUser | null
 }
 
 

@@ -10,7 +10,7 @@ class MainPage extends Component<TPageProps> {
                     <div className="flex justify-center items-center flex-wrap h-full w-full g-6 text-gray-800 mx-auto">
                         <div className="block bg-white shadow-lg rounded-lg mb-4 w-2/3">
                             <div className="flex p-4 rounded-b dark:border-gray-600 flex-col justify-center w-full">
-
+                                  11111212
                             </div>
                         </div>
                     </div>

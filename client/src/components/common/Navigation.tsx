@@ -7,6 +7,8 @@ import classNames from "classnames";
 import {setActiveTabAction} from "../../actions/common";
 import {IState, ITabHeaderItemProps} from "../../types/main";
 import {INavigationDispatchProps, INavigationProps} from "../../types/common";
+import {adminRole} from "../../config";
+import {IUser} from "../../types/users";
 
 const __TabHeaderItemLinkClass = "nav-link block font-medium text-xs leading-tight uppercase border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 hover:border-transparent hover:bg-gray-100 focus:border-transparent";
 const __NavigationNavClass = "relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg navbar navbar-expand-lg navbar-light";
@@ -15,8 +17,8 @@ const __NavigationButtonClass = "navbar-toggler text-gray-500 border-0 hover:sha
 const TabHeaderItem: FC<ITabHeaderItemProps> = ({href, label, onClick, isActive = false}: ITabHeaderItemProps) => {
     return (
         <li className="nav-item">
-            <a href={href}
-               className={classNames(__TabHeaderItemLinkClass, {
+            <a href="#"
+               className={classNames("nav-link block font-medium text-xs leading-tight uppercase border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 hover:border-transparent hover:bg-gray-100 focus:border-transparent", {
                    'active': isActive
                })}
                onClick={() => onClick()}
@@ -36,15 +38,12 @@ class Navigation extends Component<INavigationProps & INavigationDispatchProps> 
 
     render() {
         return (
-            <nav className={__NavigationNavClass}>
+            <nav className="relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg navbar navbar-expand-lg navbar-light">
                 <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6 relative">
-                    <button className={__NavigationButtonClass} type="button">
-                        <MenuIcon />
-                    </button>
-                    <div className="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent">
-                        <ul className="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0" id="tabs-tab">
-                            <TabHeaderItem label={'Principales'} href={'#tabs-mainForm'} isActive={this.props.activeTab === 'main'} onClick={() => this.props.setActiveTabAction('main')} />
-                            <TabHeaderItem label={'Rappel'} href={'#tabs-rappelForm'} isActive={this.props.activeTab === 'rappel'} onClick={() => this.props.setActiveTabAction('rappel')} />
+                    <div className="flex-grow items-center" id="navbarSupportedContent">
+                        <ul className="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0" id="tabs-tab" role="tablist">
+                            <TabHeaderItem label={'Inicial'} href={'#tabs-main'} isActive={this.props.activeTab === 'main'} onClick={() => this.props.setActiveTabAction('main')} />
+                            {this.props.authUser && this.props.authUser.role === adminRole && <TabHeaderItem label={'Trabajadores'} href={'#tabs-users'} isActive={this.props.activeTab === 'users'} onClick={() => this.props.setActiveTabAction('users')} />}
                         </ul>
                     </div>
 
@@ -63,7 +62,8 @@ export default connect(
     (state: IState) => {
         return {
             isLogged: state.auth.isLogged,
-            activeTab: state.common.activeTab
+            activeTab: state.common.activeTab,
+            authUser: state.auth.authUser
         }
     },
     {logoutUserAction, setActiveTabAction}

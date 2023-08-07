@@ -5,7 +5,7 @@ export interface IUsersDefaultAction {
     callback?: Function | undefined
 }
 export interface IUsersSetUsersAction extends IUsersDefaultAction {
-    userList: Array<IUser>
+    users: Array<IUser>
 }
 export interface IUsersAddUserAction extends IUsersDefaultAction {
     user: IUser
@@ -16,7 +16,7 @@ export interface IUsersRemoveUserAction extends IUsersDefaultAction {
 
 
 export type TUsersActionType = (typeof EUsersActionTypes)[keyof typeof EUsersActionTypes]
-export type TUsersAction = IUsersAddUserAction | IUsersRemoveUserAction | IUsersSetUsersAction
+export type TUsersAction = IUsersDefaultAction | IUsersAddUserAction | IUsersRemoveUserAction | IUsersSetUsersAction
 
 export interface IUser {
     id: number,
@@ -24,7 +24,8 @@ export interface IUser {
     username: string
     nif?: string
     naf?: string
-    contract_code?: string
+    contract_code?: string,
+    role: string
 }
 export interface IUsersState {
     userList: Array<IUser>

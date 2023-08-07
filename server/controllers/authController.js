@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator')
 const AuthService = require('../services/AuthService')
 const userInit = require("../models/User");
 const roleInit = require("../models/Role");
+const { roleNames } = require('../config')
 
 
 class authController {
@@ -23,18 +24,17 @@ class authController {
             }
 
             const hashedPassword = bcrypt.hashSync(password, 7)
-            const userRole = await Role.findOne({ where: { name: "USER" }, attributes: ['id', 'name'] })
+            const userRole = await Role.findOne({ where: { name: roleNames.user }, attributes: ['id', 'name'] })
             User.create({ username, password: hashedPassword, role: userRole.id, name, nif, naf, contract_code  })
 
             return res.json({ result: true, message: 'User registered' })
 
         } catch (e) {
-            console.log(e)
-            res.status(400).json({message: 'Registration error'})
+            this.error(res, e)
         }
     }
 
-    async login(req, res) {
+    login = async (req, res) => {
         try {
             const User = await userInit()
             const Role = await roleInit()
@@ -49,7 +49,6 @@ class authController {
             if (!validPassword) {
                 return res.status(200).json({ result: false, message: 'Password incorrect' })
             }
-
             const token = AuthService.generateToken(user.id, user.role)
             const userRole = await Role.findOne({ where: { id: user.role }, attributes: ['name'] })
             const userRoleName = userRole ? userRole.name : null
@@ -57,11 +56,11 @@ class authController {
             return res.json({ result: true, token: token, user: { name: user.name, username: user.username, nif: user.nif, naf: user.naf, contract_code: user.contract_code, id: user.id, role: userRoleName } })
 
         } catch (e) {
-            res.status(200).json({ result: false, message: 'Login error' })
+            this.error(res, e)
         }
     }
 
-    async tokenValidation(req, res) {
+    tokenValidation = async (req, res) => {
         try {
             const User = await userInit()
             const Role = await roleInit()
@@ -71,23 +70,19 @@ class authController {
                 return res.status(200).json({ result: false, message: 'Empty token' })
             }
 
-            const tokenData = AuthService.decodeToken(token)
-            if (!tokenData || !tokenData.id || !tokenData.role) {
-                return res.status(200).json({ result: false, message: 'Invalid token' })
+            const registeredUser = await AuthService.validateToken(token, User, Role)
+            if (!registeredUser) {
+                return res.status(200).json({ result: false, message: 'User unknown' })
             }
 
-            const user = await User.findOne({ where: { id: tokenData.id }, attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
-            if (!user) {
-                return res.status(200).json({ result: false, message: 'User not found' })
-            }
+            const users = registeredUser.role === roleNames.admin
+                ? await User.findAll({ attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
+                : []
 
-            const userRole = await Role.findOne({ where: { id: user.role }, attributes: ['name'] })
-            const userRoleName = userRole ? userRole.name : null
-
-            return res.json({ result: true, user: { name: user.name, username: user.username, nif: user.nif, naf: user.naf, contract_code: user.contract_code, id: user.id, role: userRoleName } })
+            return res.json({ result: true, user: { ...registeredUser }, users: users })
 
         } catch (e) {
-
+            this.error(res, e)
         }
     }
 
@@ -95,12 +90,27 @@ class authController {
         try {
             const User = await userInit()
 
-            const users = await User.findAll({ attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
+            const { token } = req.body
+            if (!token) {
+                return res.status(200).json({ result: false, message: 'Empty token' })
+            }
+
+            const registeredUser = AuthService.validateToken
+            if (!registeredUser) {
+                return res.status(200).json({ result: false, message: 'User unknown' })
+            }
+
+            const users = await User.findAll({ raw: true, attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
             return res.json({ users: users })
 
         } catch (e) {
-
+            this.error(res, e)
         }
+    }
+
+    error = (res, e) => {
+        !(e instanceof Error) && (e = new Error(e))
+        res.status(200).json({ result: false, message: e.message })
     }
 }
 

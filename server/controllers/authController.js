@@ -1,3 +1,4 @@
+const Controller = require('../controllers/Controller')
 require('dotenv').config()
 const bcrypt = require('bcryptjs')
 const { validationResult } = require('express-validator')
@@ -7,7 +8,7 @@ const roleInit = require("../models/Role");
 const { roleNames } = require('../config')
 
 
-class authController {
+class authController extends Controller {
     async registration(req, res) {
         try {
             const User = await userInit()
@@ -49,9 +50,10 @@ class authController {
             if (!validPassword) {
                 return res.status(200).json({ result: false, message: 'Password incorrect' })
             }
-            const token = AuthService.generateToken(user.id, user.role)
+
             const userRole = await Role.findOne({ where: { id: user.role }, attributes: ['name'] })
             const userRoleName = userRole ? userRole.name : null
+            const token = AuthService.generateToken(user.id, userRoleName)
 
             return res.json({ result: true, token: token, user: { name: user.name, username: user.username, nif: user.nif, naf: user.naf, contract_code: user.contract_code, id: user.id, role: userRoleName } })
 
@@ -84,33 +86,6 @@ class authController {
         } catch (e) {
             this.error(res, e)
         }
-    }
-
-    async getUsers(req, res) {
-        try {
-            const User = await userInit()
-
-            const { token } = req.body
-            if (!token) {
-                return res.status(200).json({ result: false, message: 'Empty token' })
-            }
-
-            const registeredUser = AuthService.validateToken
-            if (!registeredUser) {
-                return res.status(200).json({ result: false, message: 'User unknown' })
-            }
-
-            const users = await User.findAll({ raw: true, attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
-            return res.json({ users: users })
-
-        } catch (e) {
-            this.error(res, e)
-        }
-    }
-
-    error = (res, e) => {
-        !(e instanceof Error) && (e = new Error(e))
-        res.status(200).json({ result: false, message: e.message })
     }
 }
 

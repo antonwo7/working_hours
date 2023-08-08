@@ -1,4 +1,5 @@
 import {EUsersActionTypes} from "../reducers/types";
+import {addUserAction, editUserAction} from "../actions/users";
 
 export interface IUsersDefaultAction {
     type: TUsersActionType
@@ -8,7 +9,7 @@ export interface IUsersSetUsersAction extends IUsersDefaultAction {
     users: Array<IUser>
 }
 export interface IUsersAddUserAction extends IUsersDefaultAction {
-    user: IUser
+    user: IAddUserModalState
 }
 export interface IUsersRemoveUserAction extends IUsersDefaultAction {
     userId: number
@@ -25,12 +26,17 @@ export interface IUser {
     nif?: string
     naf?: string
     contract_code?: string,
-    role: string
+    role?: string
+}
+export interface IAddUserModalState {
+    id?: number, name: string, username: string, password: string, nif: string, naf: string, contract_code: string
 }
 export interface IUsersState {
     userList: Array<IUser>
 }
 export interface IUserProps {
-    removeUserAction: Function,
+    removeUserAction: Function
+    addUserAction: Function
+    editUserAction?: Function
     userList: Array<IUser>
 }

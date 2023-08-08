@@ -11,35 +11,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b70e8a3b-b920-429c-a390-55fefe3003b9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/SectionLoading.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/elements/Button.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/elements/ButtonLink.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/elements/File.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/elements/Input.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/elements/Select.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/common/icons/EditIcon.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/modals/AddUserModal.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/functions/users.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/controllers/Controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/controllers/userController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/middlewares/authMiddlewares.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routers/userRouter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/users.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/assets/css/tailwind-app.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/css/tailwind-app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Content.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Content.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/common/Navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/Navigation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/common/icons/LightCloseIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/common/icons/LightCloseIcon.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/pages/MainPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/MainPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/pages/UsersPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/pages/UsersPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/sections/Users.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/sections/Users.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/functions/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/functions/common.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/types/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/types/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/common.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/types/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reducers/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reducers/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/users.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/types/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/users.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/tailwind.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/authController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routers/authRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routers/authRouter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/services/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/services/AuthService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,8 +42,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -71,18 +60,18 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="jsx.switch.disabled" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/components/common" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/server/routers" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\OpenServer\domains\localhost\ilusiak\horario\client\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\server\routers" />
+      <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\server\controllers" />
       <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\client\src\components\common" />
       <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\client\src\components\common\elements" />
       <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\client\src\components\common\icons" />
-      <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\client\src\reducers" />
-      <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\client\src\components\pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\OpenServer\domains\localhost\ilusiak\horario\client" />
@@ -113,7 +102,7 @@
       <workItem from="1691096732439" duration="2022000" />
       <workItem from="1691098837448" duration="8671000" />
       <workItem from="1691256735785" duration="11000" />
-      <workItem from="1691261921711" duration="32697000" />
+      <workItem from="1691261921711" duration="48801000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,41 @@
+const {authValidation, adminValidation} = require('../middlewares/authMiddlewares');
+const Router = require('express')
+const cors = require('cors')
+const router = new Router()
+const userController = require('../controllers/userController')
+const AuthService = require("../services/AuthService");
+const { check } = require('express-validator')
+
+router.use(cors())
+
+router.post('/get_users', [], userController.getUsers)
+
+router.post('/add_user', [
+    authValidation,
+    adminValidation,
+    check('username', 'Username error').notEmpty(),
+    check('password', 'Password error').notEmpty().isLength({min: 4, max: 10}),
+    check('name', 'Name error').notEmpty(),
+    check('nif', 'NIF error').notEmpty(),
+    check('naf', 'NAF error').notEmpty(),
+    check('contract_code', 'Contract code error').notEmpty(),
+], userController.addUser)
+
+router.post('/edit_user', [
+    authValidation,
+    adminValidation,
+    check('id', 'Id error').notEmpty(),
+    check('username', 'Username error').notEmpty(),
+    check('name', 'Name error').notEmpty(),
+    check('nif', 'NIF error').notEmpty(),
+    check('naf', 'NAF error').notEmpty(),
+    check('contract_code', 'Contract code error').notEmpty(),
+], userController.editUser)
+
+router.post('/remove_user', [
+    authValidation,
+    adminValidation,
+    check('id', 'Id error').notEmpty()
+], userController.removeUser)
+
+module.exports = router

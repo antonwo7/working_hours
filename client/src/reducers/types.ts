@@ -28,5 +28,6 @@ export enum ECommonActionTypes {
 export enum EUsersActionTypes {
     USERS__SET_USERS = 'USERS__SET_USERS',
     USERS__ADD_USER = 'USERS__ADD_USER',
-    USERS__REMOVE_USER = 'USERS__REMOVE_USER'
+    USERS__REMOVE_USER = 'USERS__REMOVE_USER',
+    USERS__EDIT_USER = 'USERS__EDIT_USER'
 }

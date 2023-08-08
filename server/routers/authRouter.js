@@ -21,6 +21,5 @@ router.post('/login', [
 router.post('/validation', [
     check('token', 'Token error').notEmpty()
 ], authController.tokenValidation)
-router.get('/users', authController.getUsers)
 
 module.exports = router

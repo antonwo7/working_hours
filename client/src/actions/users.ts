@@ -1,6 +1,15 @@
 import {EUsersActionTypes} from "../reducers/types";
-import {IUser, TUsersAction} from "../types/users";
+import {IAddUserModalState, IUser, TUsersAction} from "../types/users";
 
+export function loadUsersAction(users: Array<IUser>, callback?: Function): TUsersAction {
+
+
+    return {
+        type: EUsersActionTypes.USERS__SET_USERS,
+        users,
+        callback
+    }
+}
 export function setUsersAction(users: Array<IUser>, callback?: Function): TUsersAction {
     return {
         type: EUsersActionTypes.USERS__SET_USERS,
@@ -8,9 +17,16 @@ export function setUsersAction(users: Array<IUser>, callback?: Function): TUsers
         callback
     }
 }
-export function addUserAction(user: IUser, callback?: Function): TUsersAction {
+export function addUserAction(user: IAddUserModalState, callback?: Function): TUsersAction {
     return {
         type: EUsersActionTypes.USERS__ADD_USER,
+        user,
+        callback
+    }
+}
+export function editUserAction(user: IAddUserModalState, callback?: Function): TUsersAction {
+    return {
+        type: EUsersActionTypes.USERS__EDIT_USER,
         user,
         callback
     }

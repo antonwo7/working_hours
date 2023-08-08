@@ -5,6 +5,7 @@ import { authCheckServerRequest, getTokenClientRequest, loginServerRequest, remo
 import {IAuthState, ICheckLoggedUserAction, TAuthAction} from "../types/auth";
 import {asyncFunction, notEmptyObjectProp} from "../functions/common";
 import {IUser} from "../types/users";
+import {IDay} from "../types/days";
 
 const initialState: IAuthState = {
     authUser: null,
@@ -64,11 +65,12 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
 
             const { successCallback, callback } = action as ICheckLoggedUserAction
 
-            authCheckServerRequest(token, (response: { result: boolean, user: IUser, users: Array<IUser> }) => {
+            authCheckServerRequest(token, (response: { result: boolean, user: IUser, users: Array<IUser>, days: Array<IDay> }) => {
                 const isLogged = response.result
                 if (isLogged && notEmptyObjectProp('user', response)) {
                     store.dispatch(authActions.setLoggedAction(response.user))
-                    successCallback && store.dispatch(successCallback(response.users))
+                    console.log('response.days', response.days)
+                    successCallback && successCallback(response.users, response.days)
                 }
                 callback && store.dispatch(callback())
             })

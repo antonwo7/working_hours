@@ -7,9 +7,15 @@ import {checkLoggedUserAction, setLoadingAction, hideLoadingAction} from "./acti
 import PageLoading from "./components/common/PageLoading";
 import {IAppProps, IState} from "./types/main";
 import {setUsersAction} from "./actions/users";
+import {setDaysAction} from "./actions/days";
+import {IUser} from "./types/users";
+import {IDay} from "./types/days";
 
 store.dispatch(setLoadingAction())
-store.dispatch(checkLoggedUserAction(hideLoadingAction, setUsersAction))
+store.dispatch(checkLoggedUserAction(hideLoadingAction, (users: Array<IUser>, days: Array<IDay>) => {
+    store.dispatch(setUsersAction(users))
+    store.dispatch(setDaysAction(days))
+}))
 
 class App extends Component<IAppProps> {
 

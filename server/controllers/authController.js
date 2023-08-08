@@ -5,6 +5,7 @@ const { validationResult } = require('express-validator')
 const AuthService = require('../services/AuthService')
 const userInit = require("../models/User");
 const roleInit = require("../models/Role");
+const dayInit = require("../models/Day");
 const { roleNames } = require('../config')
 
 
@@ -39,6 +40,7 @@ class authController extends Controller {
         try {
             const User = await userInit()
             const Role = await roleInit()
+            const Day = await dayInit()
 
             const { username, password } = req.body
             const user = await User.findOne({ where: { username }, attributes: ['id', 'username', 'password', 'role', 'name', 'nif', 'naf', 'contract_code'] })
@@ -55,7 +57,9 @@ class authController extends Controller {
             const userRoleName = userRole ? userRole.name : null
             const token = AuthService.generateToken(user.id, userRoleName)
 
-            return res.json({ result: true, token: token, user: { name: user.name, username: user.username, nif: user.nif, naf: user.naf, contract_code: user.contract_code, id: user.id, role: userRoleName } })
+            const days = await Day.findAll({ where: { user_id: user.id }, attributes: ['id', 'date'] })
+
+            return res.json({ result: true, token: token, user: { name: user.name, username: user.username, nif: user.nif, naf: user.naf, contract_code: user.contract_code, id: user.id, role: userRoleName }, days })
 
         } catch (e) {
             this.error(res, e)
@@ -66,22 +70,25 @@ class authController extends Controller {
         try {
             const User = await userInit()
             const Role = await roleInit()
+            const Day = await dayInit()
 
             const { token } = req.body
             if (!token) {
                 return res.status(200).json({ result: false, message: 'Empty token' })
             }
 
-            const registeredUser = await AuthService.validateToken(token, User, Role)
-            if (!registeredUser) {
+            const authUser = await AuthService.validateToken(token, User, Role)
+            if (!authUser) {
                 return res.status(200).json({ result: false, message: 'User unknown' })
             }
 
-            const users = registeredUser.role === roleNames.admin
+            const days = await Day.findAll({ where: { user_id: authUser.id }, attributes: ['id', 'date'] })
+
+            const users = authUser.role === roleNames.admin
                 ? await User.findAll({ attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
                 : []
 
-            return res.json({ result: true, user: { ...registeredUser }, users: users })
+            return res.json({ result: true, user: { ...authUser }, users, days })
 
         } catch (e) {
             this.error(res, e)

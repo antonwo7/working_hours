@@ -3,6 +3,8 @@ const express = require('express')
 
 const authRouter = require('./routers/authRouter')
 const userRouter = require('./routers/userRouter')
+const dayRouter = require('./routers/dayRouter')
+
 const app = express()
 
 const PORT = process.env.PORT || 5000
@@ -10,6 +12,7 @@ const PORT = process.env.PORT || 5000
 app.use(express.json())
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
+app.use('/day', dayRouter)
 
 const start = async () => {
     try {

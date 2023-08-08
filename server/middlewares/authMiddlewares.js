@@ -15,10 +15,12 @@ const authValidation = async (req, res, next) => {
 
     const token = req.headers.authorization.split(" ")[1];
 
-    const registeredUser = await AuthService.validateToken(token, User, Role)
-    if (!registeredUser) {
+    const authUser = await AuthService.validateToken(token, User, Role)
+    if (!authUser) {
         return res.status(200).json({ result: false, message: 'User unknown' })
     }
+
+    req.authUser = authUser
 
     next();
 };

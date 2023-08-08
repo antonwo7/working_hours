@@ -7,4 +7,8 @@ export const addUserAPIUrl = process.env.REACT_APP_API_URL + 'user/add_user'
 export const editUserAPIUrl = process.env.REACT_APP_API_URL + 'user/edit_user'
 export const removeUserAPIUrl = process.env.REACT_APP_API_URL + 'user/remove_user'
 
+export const getDaysAPIUrl = process.env.REACT_APP_API_URL + 'day/get_days'
+export const addDayAPIUrl = process.env.REACT_APP_API_URL + 'day/add_day'
+export const removeDayAPIUrl = process.env.REACT_APP_API_URL + 'day/remove_day'
+
 export const adminRole = 'ADMIN'

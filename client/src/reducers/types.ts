@@ -1,13 +1,3 @@
-// export const AUTH__LOGIN = 'AUTH__LOGIN';
-// export const AUTH__LOGOUT = 'AUTH__LOGOUT';
-// export const AUTH__CHECK = 'AUTH__CHECK';
-// export const AUTH__HIDE_ERROR = 'AUTH__HIDE_ERROR';
-// export const AUTH__SET_LOGGED = 'AUTH__SET_LOGGED';
-// export const AUTH__SET_UNLOGGED = 'AUTH__SET_UNLOGGED';
-// export const AUTH__LOGIN_FAILED = 'AUTH__LOGIN_FAILED';
-// export const AUTH__SET_LOADING = 'AUTH__SET_LOADING';
-// export const AUTH__HIDE_LOADING = 'AUTH__HIDE_LOADING';
-//
 export enum EAuthActionTypes {
     AUTH__LOGIN = 'AUTH__LOGIN',
     AUTH__LOGOUT = 'AUTH__LOGOUT',
@@ -30,4 +20,9 @@ export enum EUsersActionTypes {
     USERS__ADD_USER = 'USERS__ADD_USER',
     USERS__REMOVE_USER = 'USERS__REMOVE_USER',
     USERS__EDIT_USER = 'USERS__EDIT_USER'
+}
+export enum EDaysActionTypes {
+    DAYS__SET_DAYS = 'DAYS__SET_DAYS',
+    DAYS__ADD_DAY = 'DAYS__ADD_DAY',
+    DAYS__REMOVE_DAY = 'DAYS__REMOVE_DAY'
 }

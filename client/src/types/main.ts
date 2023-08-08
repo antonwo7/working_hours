@@ -3,6 +3,7 @@ import {ICommonState} from "./common";
 import MainPage from "../components/pages/MainPage";
 import {IUsersState} from "./users";
 import {LegacyRef, MouseEventHandler} from "react";
+import {IDaysState} from "./days";
 
 
 export interface IDefaultAction {
@@ -52,6 +53,7 @@ export interface IState {
     common: ICommonState
     auth: IAuthState
     users: IUsersState,
+    days: IDaysState,
 }
 
 export interface IButtonProps {

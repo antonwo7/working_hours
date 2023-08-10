@@ -1,9 +1,11 @@
 require('dotenv').config()
 const express = require('express')
+const databaseInit = require('./services/BDService')
 
 const authRouter = require('./routers/authRouter')
 const userRouter = require('./routers/userRouter')
 const dayRouter = require('./routers/dayRouter')
+const companyRouter = require('./routers/companyRouter')
 
 const app = express()
 
@@ -13,6 +15,7 @@ app.use(express.json())
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
 app.use('/day', dayRouter)
+app.use('/company', companyRouter)
 
 const start = async () => {
     try {

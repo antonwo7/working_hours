@@ -1,4 +1,4 @@
-const {authValidation, adminValidation} = require('../middlewares/authMiddlewares');
+const authMiddleWare = require('../middlewares/authMiddleware')
 const Router = require('express')
 const cors = require('cors')
 const router = new Router()
@@ -11,8 +11,8 @@ router.use(cors())
 router.post('/get_users', [], userController.getUsers)
 
 router.post('/add_user', [
-    authValidation,
-    adminValidation,
+    authMiddleWare.authValidation,
+    authMiddleWare.adminValidation,
     check('username', 'Username error').notEmpty(),
     check('password', 'Password error').notEmpty().isLength({min: 4, max: 10}),
     check('name', 'Name error').notEmpty(),
@@ -22,8 +22,8 @@ router.post('/add_user', [
 ], userController.addUser)
 
 router.post('/edit_user', [
-    authValidation,
-    adminValidation,
+    authMiddleWare.authValidation,
+    authMiddleWare.adminValidation,
     check('id', 'Id error').notEmpty(),
     check('username', 'Username error').notEmpty(),
     check('name', 'Name error').notEmpty(),
@@ -33,8 +33,8 @@ router.post('/edit_user', [
 ], userController.editUser)
 
 router.post('/remove_user', [
-    authValidation,
-    adminValidation,
+    authMiddleWare.authValidation,
+    authMiddleWare.adminValidation,
     check('id', 'Id error').notEmpty()
 ], userController.removeUser)
 

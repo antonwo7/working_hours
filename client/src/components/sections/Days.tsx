@@ -6,10 +6,11 @@ import EditIcon from "../common/icons/EditIcon";
 import Button from "../common/elements/Button";
 import SectionLoading from "../common/SectionLoading";
 import {IDay} from "../../types/days";
-import {addDayAction, removeDayAction} from "../../actions/days";
-import {dateFormat, getDates, getMonthNameList} from "../../functions/days";
+import {addDayAction, loadDaysAction, removeDayAction} from "../../actions/days";
+import {dateFormat, getCurrentMonth, getDates, getMonthNameList} from "../../functions/days";
 import Select from "../common/elements/Select";
 import classNames from "classnames";
+import store from '../../reducers';
 
 const closeButton = {
     className: "text-sm focus:outline-none text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-xl text-sm px-1 py-1 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900",
@@ -38,7 +39,7 @@ class Days extends Component<{ dayList: Array<IDay>, addDayAction: Function, rem
     constructor(props: { dayList: Array<IDay>, addDayAction: Function, removeDayAction: Function }) {
         super(props)
 
-        const currentMonth = (new Date()).getMonth()
+        const currentMonth = getCurrentMonth()
         const dateList = this.getDateList(currentMonth)
 
         this.state = {
@@ -55,7 +56,7 @@ class Days extends Component<{ dayList: Array<IDay>, addDayAction: Function, rem
 
     getMonthOptions() {
         const monthNameOptions: {[key: number]: string} = {}
-        getMonthNameList().forEach((monthName, index) => monthNameOptions[index] = monthName)
+        getMonthNameList().forEach((monthName, index) => monthNameOptions[index + 1] = monthName)
         return monthNameOptions
     }
 
@@ -68,7 +69,15 @@ class Days extends Component<{ dayList: Array<IDay>, addDayAction: Function, rem
     }
 
     changeMonth(monthNumber: number) {
-        this.setState({ dateList: this.getDateList(monthNumber) })
+        const dates = this.getDateList(monthNumber)
+
+        this.setState({ loading: true, month: monthNumber })
+
+        setTimeout(() => {
+            store.dispatch(loadDaysAction(monthNumber, () => {
+                this.setState({ loading: false, dateList: dates })
+            }))
+        }, 1000)
     }
 
     checkDate(dateString: string): number | null {
@@ -85,7 +94,7 @@ class Days extends Component<{ dayList: Array<IDay>, addDayAction: Function, rem
                 {this.state.loading && <SectionLoading opacity={true} />}
                 <div className="flex flex-row justify-between">
                     <div className="flex flex-col">
-                        <Select options={this.state.monthNames} onChange={(value: number) => this.changeMonth(value)} />
+                        <Select options={this.state.monthNames} onChange={(value: number) => this.changeMonth(value)} value={this.state.month} />
                         <table className="border-collapse table-fixed w-full text-sm mt-3">
                             <thead>
                                 <tr>

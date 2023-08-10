@@ -2,7 +2,7 @@ import {EDaysActionTypes} from "./types";
 import store from "./index";
 import * as daysActions from "../actions/days";
 import {IDay, IDaysState, TDaysAction} from "../types/days";
-import {addDayServerRequest, removeDayServerRequest} from "../functions/days";
+import {addDayServerRequest, getCurrentMonth, getDaysServerRequest, removeDayServerRequest} from "../functions/days";
 
 const initialState: IDaysState = {
     dayList: []
@@ -26,6 +26,17 @@ export default function days(state: IDaysState = initialState, action: TDaysActi
             })
 
             action.callback && action.callback()
+
+            return state
+        }
+
+        case EDaysActionTypes.DAYS__LOAD_DAYS: {
+            const monthNumber = (!('month' in action) || !action.month) ? getCurrentMonth() : action.month
+
+            getDaysServerRequest(monthNumber, (response: { result: boolean, days: Array<IDay> }) => {
+                store.dispatch(daysActions.setDaysAction(response.days))
+                action.callback && action.callback()
+            })
 
             return state
         }

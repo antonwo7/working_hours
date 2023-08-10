@@ -19,3 +19,15 @@ export function setActiveTabAction(activeTab: number): ISetActiveTabCommonAction
         activeTab: activeTab
     }
 }
+
+export function showCompanyModalAction(): ICommonDefaultAction {
+    return {
+        type: ECommonActionTypes.COMMON__SHOW_COMPANY_MODAL,
+    }
+}
+
+export function hideCompanyModalAction(): ICommonDefaultAction {
+    return {
+        type: ECommonActionTypes.COMMON__HIDE_COMPANY_MODAL,
+    }
+}

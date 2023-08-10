@@ -5,8 +5,11 @@ export interface IDaysDefaultAction {
     type: TDaysActionType
     callback?: Function | undefined
 }
+export interface IDaysLoadDaysAction extends IDaysDefaultAction {
+    month: number
+}
 export interface IDaysSetDaysAction extends IDaysDefaultAction {
-    days: Array<IDay>
+    days?: Array<IDay>
 }
 export interface IDaysAddDayAction extends IDaysDefaultAction {
     day: string
@@ -17,7 +20,7 @@ export interface IDaysRemoveDayAction extends IDaysDefaultAction {
 
 
 export type TDaysActionType = (typeof EDaysActionTypes)[keyof typeof EDaysActionTypes]
-export type TDaysAction = IDaysDefaultAction | IDaysAddDayAction | IDaysRemoveDayAction | IDaysSetDaysAction
+export type TDaysAction = IDaysDefaultAction | IDaysAddDayAction | IDaysRemoveDayAction | IDaysSetDaysAction | IDaysLoadDaysAction
 
 export interface IDay {
     id?: number,

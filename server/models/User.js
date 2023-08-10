@@ -1,9 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const BDService = require('../services/BDService')
+const { dbInit } = require('../services/BDService')
 
 const userInit = async () => {
-    const sequelize = await BDService.databaseInit()
-
+    const sequelize = await dbInit
     return sequelize.define('User', {
         id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
         username: { type: DataTypes.STRING, allowNull: false },
@@ -15,7 +14,7 @@ const userInit = async () => {
         contract_code: { type: DataTypes.STRING, allowNull: false },
     }, {
         timestamps: false
-    });
+    })
 }
 
-module.exports = userInit
+module.exports = userInit()

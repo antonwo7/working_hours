@@ -1,10 +1,9 @@
 const { DataTypes } = require('sequelize');
-const BDService = require('../services/BDService')
+const { dbInit } = require('../services/BDService')
 const date = require('date-and-time')
 
 const dayInit = async () => {
-    const sequelize = await BDService.databaseInit()
-
+    const sequelize = await dbInit
     return sequelize.define('Day', {
         id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
         date: {
@@ -21,4 +20,4 @@ const dayInit = async () => {
     });
 }
 
-module.exports = dayInit
+module.exports = dayInit()

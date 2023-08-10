@@ -11,4 +11,6 @@ export const getDaysAPIUrl = process.env.REACT_APP_API_URL + 'day/get_days'
 export const addDayAPIUrl = process.env.REACT_APP_API_URL + 'day/add_day'
 export const removeDayAPIUrl = process.env.REACT_APP_API_URL + 'day/remove_day'
 
+export const editCompanyAPIUrl = process.env.REACT_APP_API_URL + 'company/edit_company'
+
 export const adminRole = 'ADMIN'

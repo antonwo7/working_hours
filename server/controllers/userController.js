@@ -2,23 +2,31 @@ const Controller = require('../controllers/Controller')
 require('dotenv').config()
 const bcrypt = require('bcryptjs')
 const { validationResult } = require('express-validator')
-const AuthService = require('../services/AuthService')
+const authService = require('../services/AuthService')
 const userInit = require("../models/User");
 const roleInit = require("../models/Role");
 const { roleNames } = require('../config')
 
 
 class userController extends Controller {
-    async getUsers(req, res) {
+    constructor() {
+        super()
+
+        userInit.then(User => this.User = User)
+        roleInit.then(Role => this.Role = Role)
+    }
+
+    getUsers = async (req, res) => {
+        const User = this.User
+
         try {
-            const User = await userInit()
 
             const { token } = req.body
             if (!token) {
                 return res.status(200).json({ result: false, message: 'Empty token' })
             }
 
-            const registeredUser = AuthService.validateToken
+            const registeredUser = authService.validateToken
             if (!registeredUser) {
                 return res.status(200).json({ result: false, message: 'User unknown' })
             }
@@ -31,15 +39,15 @@ class userController extends Controller {
         }
     }
 
-    async addUser(req, res) {
+    addUser = async (req, res) => {
         try {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
                 return res.status(200).json({ result: false, message: 'User adding error', errors: errors })
             }
 
-            const User = await userInit()
-            const Role = await roleInit()
+            const User = this.User
+            const Role = this.Role
 
             const { username, password, name, nif, naf, contract_code } = req.body
             const candidate = await User.findOne({ where: { username }, attributes: ['id', 'username'] })
@@ -64,14 +72,14 @@ class userController extends Controller {
         }
     }
 
-    async removeUser(req, res) {
+    removeUser = async (req, res) => {
+        const User = this.User
         try {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
                 return res.status(200).json({ result: false, message: 'User removing error', errors: errors })
             }
 
-            const User = await userInit()
             const { id } = req.body
 
             const candidate = await User.findOne({ where: { id }, attributes: ['id'] })
@@ -90,14 +98,14 @@ class userController extends Controller {
         }
     }
 
-    async editUser(req, res) {
+    editUser = async(req, res) => {
+        const User = this.User
         try {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
                 return res.status(200).json({ result: false, message: 'User editing error', errors: errors })
             }
 
-            const User = await userInit()
             const { id, username, password, name, nif, naf, contract_code } = req.body
 
             const candidate = await User.findOne({ where: { id }, attributes: ['id'] })

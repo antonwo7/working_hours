@@ -1,18 +1,29 @@
 const jwt = require('jsonwebtoken')
 const { secret, tokenExpiresIn } = require('../config')
 const moment = require('moment')
+const userInit = require("../models/User");
+const roleInit = require("../models/Role");
+const dayInit = require("../models/Day");
 
 class AuthService {
-    static generateToken = (id, role) => {
+    constructor() {
+        userInit.then(User => this.User = User)
+        roleInit.then(Role => this.Role = Role)
+    }
+
+    generateToken = (id, role) => {
         return jwt.sign({ id, role }, secret, { expiresIn: tokenExpiresIn })
     }
 
-    static decodeToken = (token) => {
+    decodeToken = (token) => {
         return jwt.verify(token, secret);
     }
 
-    static validateToken = async (token, User, Role) => {
-        const tokenData = AuthService.decodeToken(token)
+    validateToken = async (token) => {
+        const User = this.User
+        const Role = this.Role
+
+        const tokenData = this.decodeToken(token)
         if (!tokenData || !tokenData.id || !tokenData.role) return false
 
         if (tokenData.exp <= moment().unix()) return false
@@ -27,4 +38,4 @@ class AuthService {
     }
 }
 
-module.exports = AuthService
+module.exports = new AuthService()

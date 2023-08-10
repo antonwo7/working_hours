@@ -8,24 +8,48 @@ import EditIcon from "../common/icons/EditIcon";
 import Button from "../common/elements/Button";
 import SectionLoading from "../common/SectionLoading";
 import AddUserModal from "../modals/AddUserModal";
+import classNames from "classnames";
+import ChooseMonthsModal from "../modals/ChooseMonthsModal";
+import DownloadIcon from "../common/icons/DownloadIcon";
 
 const closeButton = {
-    className: "text-sm focus:outline-none text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-xl text-sm px-1 py-1 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900",
-    style: { position: 'absolute', top: '0', transform: 'translateY(-50%) translateX(-50%)', left: '0', width: '20px' } as React.CSSProperties
+    className: "text-sm focus:outline-none text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-xl text-sm px-1 py-1 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900",
+    style: { width: '20px' }
 }
 const editButton = {
-    className: "text-sm focus:outline-none text-white bg-green-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-xl text-sm px-1 py-1 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900",
-    style: { position: 'absolute', top: '0', transform: 'translateY(-50%) translateX(-50%)', left: '100%', width: '20px' } as React.CSSProperties
+    className: "text-sm focus:outline-none text-white bg-green-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-xl text-sm px-1 py-1 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900",
+    style: { width: '20px' }
 }
 
-class Users extends Component<IUserProps, { loading: boolean, adding: boolean, editing: boolean, editingUser: IUser | null }> {
+const generateButton = {
+    className: "text-sm focus:outline-none text-white bg-blue-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-xl text-sm px-1 py-1 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900",
+    style: { width: '20px' }
+}
+
+const th = {
+    className: "border-b dark:border-slate-600 font-medium px-2 pt-3 pb-3 text-slate-800 dark:text-slate-200 text-left bg-gray-300"
+}
+
+const td = {
+    className: "border-b border-slate-300 dark:border-slate-700 px-2 pt-2 pb-2 text-slate-500 dark:text-slate-400"
+}
+
+const table = {
+    classNames: "border-collapse table-fixed w-full text-sm mt-3"
+}
+
+const headerNames = ['Nombre', 'Usario', 'NIF', 'NAF', '']
+
+
+class Users extends Component<IUserProps, { loading: boolean, adding: boolean, editing: boolean, editingUser: IUser | null, monthsChoosing: boolean }> {
     constructor(props: IUserProps) {
         super(props);
         this.state = {
             loading: false,
             adding: false,
             editing: false,
-            editingUser: null
+            editingUser: null,
+            monthsChoosing: false
         }
     }
 
@@ -45,35 +69,54 @@ class Users extends Component<IUserProps, { loading: boolean, adding: boolean, e
         this.props.removeUserAction(id)
     }
 
+    generatePDF = (months: Array<number>) => {
+        this.setState({ monthsChoosing: false })
+        console.log('months', months)
+    }
 
+    generate = () => {
+        this.setState({ monthsChoosing: true })
+    }
+
+    closeGenerate = () => {
+        this.setState({ monthsChoosing: false  })
+    }
 
     render() {
 
         return (
             <>
                 {this.state.loading && <SectionLoading opacity={true} />}
+                {this.state.monthsChoosing && <ChooseMonthsModal executeHandle={this.generatePDF} closeHandle={this.closeGenerate} />}
                 {this.state.adding && <AddUserModal addHandler={this.addUser} closeHandler={this.closeAddingModal} />}
                 {this.state.editing && <AddUserModal addHandler={this.addUser} editHandler={this.editUser} closeHandler={this.closeAddingModal} user={this.state.editingUser} />}
                 <div className="flex flex-row justify-between">
-                    <div className="flex flex-col">
-                        {this.props.userList && this.props.userList.map((user, index) => (
-                            <div className="mb-6 flex flex-row bg-gray-200 rounded flex items-center relative p-3 min-w-[32rem] max-w-[100%]" key={user.id}>
-                                <div className="mr-4">
-                                    <span>{user.name}</span>
-                                </div>
-                                <button type="button" { ...closeButton } onClick={() => this.removeUser(user.id)}><LightCloseIcon width={3} height={3}/></button>
-                                <button type="button" { ...editButton } onClick={() => this.showEditingModal(user)}><EditIcon width={3} height={3}/></button>
-                            </div>
 
-                        ))}
-
-                        <div className="flex justify-between">
-                            <Button type="button" label="Agregar" onClick={() => this.showAddingModal()} />
-                        </div>
-                    </div>
-                    {/*<div className="mb-4 flex items-end">*/}
-                    {/*    <Button type="button" label="Guardar" onClick={} loading={this.state.saveLoading} />*/}
-                    {/*</div>*/}
+                    <table className="border-collapse table-fixed w-full text-sm mt-3 mb-6">
+                        <thead>
+                        <tr>
+                            {headerNames.map((name, i) => <th key={i} {...th}>{name}</th>)}
+                        </tr>
+                        </thead>
+                        <tbody className="bg-white dark:bg-slate-800">
+                        {this.props.userList && this.props.userList.map((user, index) => {
+                            const values = [user.name, user.username, user.nif, user.naf]
+                            return (
+                                <tr className="hover:bg-blue-200" key={index}>
+                                    {values.map((value, i) => <td key={i} className={td.className}>{value}</td>)}
+                                    <td className={td.className}>
+                                        <button type="button" { ...editButton } onClick={() => this.showEditingModal(user)}><EditIcon width={3} height={3}/></button>
+                                        <button type="button" { ...closeButton } onClick={() => this.removeUser(user.id)}><LightCloseIcon width={3} height={3}/></button>
+                                        <button type="button" { ...generateButton } onClick={() => this.generate()}><DownloadIcon width={3} height={3}/></button>
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="flex justify-between">
+                    <Button type="button" label="Agregar" onClick={() => this.showAddingModal()} />
                 </div>
             </>
         )

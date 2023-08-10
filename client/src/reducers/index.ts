@@ -5,12 +5,14 @@ import auth from './auth';
 import common from './common';
 import users from './users';
 import days from './days';
+import companies from './companies';
 
 const reducer = combineReducers({
     auth,
     common,
     users,
-    days
+    days,
+    companies
 })
 
 let middleware = [reduxThunk]

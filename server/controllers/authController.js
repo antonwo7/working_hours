@@ -2,18 +2,29 @@ const Controller = require('../controllers/Controller')
 require('dotenv').config()
 const bcrypt = require('bcryptjs')
 const { validationResult } = require('express-validator')
-const AuthService = require('../services/AuthService')
+const authService = require('../services/AuthService')
 const userInit = require("../models/User");
 const roleInit = require("../models/Role");
 const dayInit = require("../models/Day");
+const companyInit = require("../models/Company");
 const { roleNames } = require('../config')
 
 
 class authController extends Controller {
+
+    constructor() {
+        super()
+
+        userInit.then(User => this.User = User)
+        roleInit.then(Role => this.Role = Role)
+        dayInit.then(Day => this.Day = Day)
+        companyInit.then(Company => this.Company = Company)
+    }
+
     async registration(req, res) {
         try {
-            const User = await userInit()
-            const Role = await roleInit()
+            const User = this.User
+            const Role = this.Role
 
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
@@ -38,15 +49,17 @@ class authController extends Controller {
 
     login = async (req, res) => {
         try {
-            const User = await userInit()
-            const Role = await roleInit()
-            const Day = await dayInit()
+            const User = this.User
+            const Role = this.Role
+            const Day = this.Day
+            const Company = this.Company
 
             const { username, password } = req.body
-            const user = await User.findOne({ where: { username }, attributes: ['id', 'username', 'password', 'role', 'name', 'nif', 'naf', 'contract_code'] })
+            const user = await User.findOne({ raw: true, where: { username }, attributes: ['id', 'username', 'password', 'role', 'name', 'nif', 'naf', 'contract_code'] })
             if (!user) {
                 return res.status(200).json({ result: false, message: 'User not found' })
             }
+
 
             const validPassword = bcrypt.compareSync(password, user.password)
             if (!validPassword) {
@@ -55,11 +68,22 @@ class authController extends Controller {
 
             const userRole = await Role.findOne({ where: { id: user.role }, attributes: ['name'] })
             const userRoleName = userRole ? userRole.name : null
-            const token = AuthService.generateToken(user.id, userRoleName)
+            const token = authService.generateToken(user.id, userRoleName)
 
             const days = await Day.findAll({ where: { user_id: user.id }, attributes: ['id', 'date'] })
 
-            return res.json({ result: true, token: token, user: { name: user.name, username: user.username, nif: user.nif, naf: user.naf, contract_code: user.contract_code, id: user.id, role: userRoleName }, days })
+            const users = userRoleName === roleNames.admin
+                ? await User.findAll({ attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
+                : []
+
+            const companies = userRoleName === roleNames.admin
+                ? await Company.findAll({ attributes: ['id', 'name', 'cif', 'code', 'law_text'] })
+                : []
+
+            delete user.password
+            user.role = userRoleName
+
+            return res.json({ result: true, token: token, user: { ...user }, users, days, companies })
 
         } catch (e) {
             this.error(res, e)
@@ -68,16 +92,17 @@ class authController extends Controller {
 
     tokenValidation = async (req, res) => {
         try {
-            const User = await userInit()
-            const Role = await roleInit()
-            const Day = await dayInit()
+            const User = this.User
+            const Role = this.Role
+            const Day = this.Day
+            const Company = this.Company
 
             const { token } = req.body
             if (!token) {
                 return res.status(200).json({ result: false, message: 'Empty token' })
             }
 
-            const authUser = await AuthService.validateToken(token, User, Role)
+            const authUser = await authService.validateToken(token)
             if (!authUser) {
                 return res.status(200).json({ result: false, message: 'User unknown' })
             }
@@ -88,7 +113,11 @@ class authController extends Controller {
                 ? await User.findAll({ attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
                 : []
 
-            return res.json({ result: true, user: { ...authUser }, users, days })
+            const companies = authUser.role === roleNames.admin
+                ? await Company.findAll({ attributes: ['id', 'name', 'cif', 'code', 'law_text'] })
+                : []
+
+            return res.json({ result: true, user: { ...authUser }, users, days, companies })
 
         } catch (e) {
             this.error(res, e)

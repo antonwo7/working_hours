@@ -4,22 +4,14 @@ import MainPage from "../components/pages/MainPage";
 import {IUsersState} from "./users";
 import {LegacyRef, MouseEventHandler} from "react";
 import {IDaysState} from "./days";
+import {ICompaniesState} from "./companies";
+import {hideCompanyModalAction} from "../actions/common";
 
 
 export interface IDefaultAction {
     type: string,
     callback?: Function | undefined
 }
-
-// export interface IUserData {
-//     name: string
-//     username: string
-//     nif?: string
-//     naf?: string
-//     contract_code?: string
-//     role: string | null
-// }
-
 
 export type TPageProps = {
     loading?: boolean
@@ -45,6 +37,8 @@ export interface ITabContentItemProps {
 export type TContentProps = {
     loading?: boolean
     activeTab: string
+    companyModalShown: boolean
+    hideCompanyModalAction: Function
 }
 
 
@@ -54,6 +48,7 @@ export interface IState {
     auth: IAuthState
     users: IUsersState,
     days: IDaysState,
+    companies: ICompaniesState,
 }
 
 export interface IButtonProps {

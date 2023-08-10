@@ -1,11 +1,15 @@
 import { EAuthActionTypes } from './types'
 import * as authActions from './../actions/auth'
+import * as daysActions from './../actions/days'
+import * as usersActions from './../actions/users'
+import * as companiesActions from './../actions/companies'
 import store from './index'
 import { authCheckServerRequest, getTokenClientRequest, loginServerRequest, removeTokenClientRequest, saveTokenClientRequest } from "../functions/auth"
 import {IAuthState, ICheckLoggedUserAction, TAuthAction} from "../types/auth";
 import {asyncFunction, notEmptyObjectProp} from "../functions/common";
 import {IUser} from "../types/users";
 import {IDay} from "../types/days";
+import {ICompany} from "../types/companies";
 
 const initialState: IAuthState = {
     authUser: null,
@@ -19,10 +23,13 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
         case EAuthActionTypes.AUTH__LOGIN: {
 
             if ('username' in action && 'password' in action) {
-                loginServerRequest(action.username, action.password, (response: { user: IUser, result: boolean, token: string | null }) => {
+                loginServerRequest(action.username, action.password, (response: { user: IUser, result: boolean, token: string | null, days: Array<IDay>, users: Array<IUser>, companies: Array<ICompany> }) => {
                     if (response.result && response.token && response.user){
                         saveTokenClientRequest(response.token)
                         store.dispatch(authActions.setLoggedAction(response.user))
+                        store.dispatch(daysActions.setDaysAction(response.days))
+                        store.dispatch(usersActions.setUsersAction(response.users))
+                        store.dispatch(companiesActions.setCompaniesAction(response.companies))
                     } else {
                         store.dispatch(authActions.loginFailedAction())
                     }
@@ -65,12 +72,11 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
 
             const { successCallback, callback } = action as ICheckLoggedUserAction
 
-            authCheckServerRequest(token, (response: { result: boolean, user: IUser, users: Array<IUser>, days: Array<IDay> }) => {
+            authCheckServerRequest(token, (response: { result: boolean, user: IUser, users: Array<IUser>, days: Array<IDay>, companies: Array<ICompany> }) => {
                 const isLogged = response.result
                 if (isLogged && notEmptyObjectProp('user', response)) {
                     store.dispatch(authActions.setLoggedAction(response.user))
-                    console.log('response.days', response.days)
-                    successCallback && successCallback(response.users, response.days)
+                    successCallback && successCallback(response.users, response.days, response.companies)
                 }
                 callback && store.dispatch(callback())
             })

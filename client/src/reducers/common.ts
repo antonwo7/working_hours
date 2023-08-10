@@ -4,6 +4,7 @@ import { ECommonActionTypes } from "./types";
 const initialState: ICommonState = {
     loading: false,
     activeTab: 'main',
+    companyModalShown: false
 }
 
 export default function common(state: ICommonState = initialState, action: TCommonAction) {
@@ -12,6 +13,14 @@ export default function common(state: ICommonState = initialState, action: TComm
 
         case ECommonActionTypes.COMMON__SHOW_LOADING: {
             return {...state, loading: true};
+        }
+
+        case ECommonActionTypes.COMMON__SHOW_COMPANY_MODAL: {
+            return {...state, companyModalShown: true};
+        }
+
+        case ECommonActionTypes.COMMON__HIDE_COMPANY_MODAL: {
+            return {...state, companyModalShown: false};
         }
 
         case ECommonActionTypes.COMMON__HIDE_LOADING: {

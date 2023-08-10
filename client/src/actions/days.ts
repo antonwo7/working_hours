@@ -1,11 +1,11 @@
 import {EDaysActionTypes} from "../reducers/types";
 import {IDay, TDaysAction} from "../types/days";
 
-export function loadDaysAction(days: Array<IDay>, callback?: Function): TDaysAction {
+export function loadDaysAction(month?: number, callback?: Function): TDaysAction {
 
     return {
-        type: EDaysActionTypes.DAYS__SET_DAYS,
-        days,
+        type: EDaysActionTypes.DAYS__LOAD_DAYS,
+        month,
         callback
     }
 }

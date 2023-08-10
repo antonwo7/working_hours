@@ -1,17 +1,44 @@
-const date = require('date-and-time')
+const { Sequelize, Op } = require('sequelize')
 
+const date = require('date-and-time')
+const { dbInit } = require('../services/BDService')
 const Controller = require('../controllers/Controller')
 const { validationResult } = require('express-validator')
-const dayInit = require("../models/Day");
+const dayInit = require("../models/Day")
 
 
 class dayController extends Controller {
+    constructor() {
+        super()
+
+        dayInit.then(Day => this.Day = Day)
+    }
+
     getDays = async (req, res) => {
+        const Day = this.Day
         try {
+            const sequelize = await dbInit
+
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                return res.status(200).json({ result: false, message: 'Days getting error', errors: errors })
+            }
+
             const Day = await dayInit()
             const authUser = req.authUser
+            const {month} = req.body
 
-            const days = await Day.findAll({ raw: true, where: {user_id: authUser.id}, attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
+            const days = await Day.findAll({
+                where: {
+                    [Op.and]: [
+                        sequelize.where(sequelize.fn('MONTH', sequelize.col('date')), month),
+                        {
+                            user_id: authUser.id,
+                        }
+                    ]
+                },
+                attributes: ['id', 'date']
+            })
 
             return res.status(200).json({ result: false, days: days })
 
@@ -27,7 +54,7 @@ class dayController extends Controller {
                 return res.status(200).json({ result: false, message: 'Days adding error', errors: errors })
             }
 
-            const Day = await dayInit()
+            const Day = this.Day
 
             const { day } = req.body
             const authUser = req.authUser
@@ -61,7 +88,7 @@ class dayController extends Controller {
                 return res.status(200).json({ result: false, message: 'Days removing error', errors: errors })
             }
 
-            const Day = await dayInit()
+            const Day = this.Day
             const authUser = req.authUser
             const { id } = req.body
 

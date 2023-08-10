@@ -10,11 +10,14 @@ import {setUsersAction} from "./actions/users";
 import {setDaysAction} from "./actions/days";
 import {IUser} from "./types/users";
 import {IDay} from "./types/days";
+import {ICompany} from "./types/companies";
+import {setCompaniesAction} from "./actions/companies";
 
 store.dispatch(setLoadingAction())
-store.dispatch(checkLoggedUserAction(hideLoadingAction, (users: Array<IUser>, days: Array<IDay>) => {
+store.dispatch(checkLoggedUserAction(hideLoadingAction, (users: Array<IUser>, days: Array<IDay>, companies: Array<ICompany>) => {
     store.dispatch(setUsersAction(users))
     store.dispatch(setDaysAction(days))
+    store.dispatch(setCompaniesAction(companies))
 }))
 
 class App extends Component<IAppProps> {

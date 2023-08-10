@@ -2,6 +2,7 @@ import { ECommonActionTypes } from "../reducers/types";
 import {logoutUserAction} from "../actions/auth";
 import {IAuthState} from "./auth";
 import {IUser} from "./users";
+import {showCompanyModalAction} from "../actions/common";
 
 export type TCommonActionType = (typeof ECommonActionTypes)[keyof typeof ECommonActionTypes]
 export type TCommonAction = ICommonDefaultAction | ISetActiveTabCommonAction
@@ -16,6 +17,7 @@ export interface ISetActiveTabCommonAction extends ICommonDefaultAction{
 export interface ICommonState {
     loading: boolean
     activeTab: string
+    companyModalShown: boolean
 }
 
 
@@ -29,6 +31,7 @@ export interface INavigationProps {
 export interface INavigationDispatchProps {
     setActiveTabAction: Function
     logoutUserAction: Function,
+    showCompanyModalAction: Function
     authUser?: IUser | null
 }
 

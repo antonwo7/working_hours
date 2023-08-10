@@ -1,4 +1,4 @@
-import {addDayAPIUrl, removeDayAPIUrl} from "../config";
+import {addDayAPIUrl, getDaysAPIUrl, removeDayAPIUrl} from "../config";
 import {getTokenClientRequest} from "./auth";
 import {IDay} from "../types/days";
 const date = require('date-and-time')
@@ -16,7 +16,12 @@ export function getMonthNameList() {
     return months
 }
 
-function getMonthName(monthNumber: number) {
+export function getCurrentMonth() {
+    const date = new Date()
+    return date.getMonth() + 1
+}
+
+export function getMonthName(monthNumber: number) {
     const date = new Date();
     date.setMonth(monthNumber - 1);
 
@@ -30,18 +35,20 @@ function isWeekend(date: Date) {
 
 function getMonthLastDay(month: number): Date {
     const date = new Date()
-    return new Date(date.getFullYear(), month + 1, 0)
+    return new Date(date.getFullYear(), month, 0)
 }
 
 function getMonthFirstDay(month: number): Date {
     const date = new Date()
-    return new Date(date.getFullYear(), month, 1)
+    return new Date(date.getFullYear(), month - 1, 1)
 }
 
 export function getDates(month: number): Array<{ date: string, weekend: boolean }> {
     const dates: Array<{ date: string, weekend: boolean }> = []
     const firstDate = getMonthFirstDay(month)
     const lastDate = getMonthLastDay(month)
+
+    console.log('firstDate', firstDate, lastDate)
 
     while (firstDate <= lastDate) {
         dates.push({ date: dateFormat(firstDate), weekend: isWeekend(firstDate) })
@@ -62,6 +69,27 @@ export async function addDayServerRequest(day: string, callback?: Function | nul
     fetch(addDayAPIUrl, {
         method: 'POST',
         body: JSON.stringify({ day }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+
+    }).then(data => data.json()).then(response => {
+        callback && callback(response)
+    })
+}
+
+export async function getDaysServerRequest(month: number, callback?: Function | null) {
+    const token = getTokenClientRequest()
+    if (!token) {
+        console.log('Token is empty')
+        callback && callback(null)
+        return;
+    }
+
+    fetch(getDaysAPIUrl, {
+        method: 'POST',
+        body: JSON.stringify({ month }),
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

@@ -6,6 +6,7 @@ const authRouter = require('./routers/authRouter')
 const userRouter = require('./routers/userRouter')
 const dayRouter = require('./routers/dayRouter')
 const companyRouter = require('./routers/companyRouter')
+const reportRouter = require('./routers/reportRouter')
 
 const app = express()
 
@@ -16,6 +17,7 @@ app.use('/auth', authRouter)
 app.use('/user', userRouter)
 app.use('/day', dayRouter)
 app.use('/company', companyRouter)
+app.use('/report', reportRouter)
 
 const start = async () => {
     try {

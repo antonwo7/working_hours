@@ -11,6 +11,8 @@ import AddUserModal from "../modals/AddUserModal";
 import classNames from "classnames";
 import ChooseMonthsModal from "../modals/ChooseMonthsModal";
 import DownloadIcon from "../common/icons/DownloadIcon";
+import {generateReportAction} from "../../actions/common";
+import {fileDownload} from "../../functions/common";
 
 const closeButton = {
     className: "text-sm focus:outline-none text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-xl text-sm px-1 py-1 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900",
@@ -41,7 +43,7 @@ const table = {
 const headerNames = ['Nombre', 'Usario', 'NIF', 'NAF', '']
 
 
-class Users extends Component<IUserProps, { loading: boolean, adding: boolean, editing: boolean, editingUser: IUser | null, monthsChoosing: boolean }> {
+class Users extends Component<IUserProps, { loading: boolean, adding: boolean, editing: boolean, editingUser: IUser | null, monthsChoosing: boolean, reportingUser: number | null }> {
     constructor(props: IUserProps) {
         super(props);
         this.state = {
@@ -49,7 +51,8 @@ class Users extends Component<IUserProps, { loading: boolean, adding: boolean, e
             adding: false,
             editing: false,
             editingUser: null,
-            monthsChoosing: false
+            monthsChoosing: false,
+            reportingUser: null
         }
     }
 
@@ -70,12 +73,16 @@ class Users extends Component<IUserProps, { loading: boolean, adding: boolean, e
     }
 
     generatePDF = (months: Array<number>) => {
-        this.setState({ monthsChoosing: false })
-        console.log('months', months)
+        this.setState({ monthsChoosing: true })
+        if (!this.state.reportingUser) return;
+
+        this.props.generateReportAction(months, this.state.reportingUser, (reportUrl: string) => {
+            fileDownload(reportUrl)
+        } )
     }
 
-    generate = () => {
-        this.setState({ monthsChoosing: true })
+    generate = (id: number) => {
+        this.setState({ monthsChoosing: true, reportingUser: id })
     }
 
     closeGenerate = () => {
@@ -87,7 +94,7 @@ class Users extends Component<IUserProps, { loading: boolean, adding: boolean, e
         return (
             <>
                 {this.state.loading && <SectionLoading opacity={true} />}
-                {this.state.monthsChoosing && <ChooseMonthsModal executeHandle={this.generatePDF} closeHandle={this.closeGenerate} />}
+                {this.state.monthsChoosing && this.state.reportingUser && <ChooseMonthsModal userId={this.state.reportingUser} executeHandle={this.generatePDF} closeHandle={this.closeGenerate} />}
                 {this.state.adding && <AddUserModal addHandler={this.addUser} closeHandler={this.closeAddingModal} />}
                 {this.state.editing && <AddUserModal addHandler={this.addUser} editHandler={this.editUser} closeHandler={this.closeAddingModal} user={this.state.editingUser} />}
                 <div className="flex flex-row justify-between">
@@ -107,7 +114,7 @@ class Users extends Component<IUserProps, { loading: boolean, adding: boolean, e
                                     <td className={td.className}>
                                         <button type="button" { ...editButton } onClick={() => this.showEditingModal(user)}><EditIcon width={3} height={3}/></button>
                                         <button type="button" { ...closeButton } onClick={() => this.removeUser(user.id)}><LightCloseIcon width={3} height={3}/></button>
-                                        <button type="button" { ...generateButton } onClick={() => this.generate()}><DownloadIcon width={3} height={3}/></button>
+                                        <button type="button" { ...generateButton } onClick={() => this.generate(user.id)}><DownloadIcon width={3} height={3}/></button>
                                     </td>
                                 </tr>
                             )
@@ -127,5 +134,5 @@ export default connect((state: IState) => {
     return {
         userList: state.users.userList
     }
-}, { removeUserAction, addUserAction, editUserAction })
+}, { removeUserAction, addUserAction, editUserAction, generateReportAction })
 (Users)

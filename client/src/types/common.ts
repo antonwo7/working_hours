@@ -5,7 +5,7 @@ import {IUser} from "./users";
 import {showCompanyModalAction} from "../actions/common";
 
 export type TCommonActionType = (typeof ECommonActionTypes)[keyof typeof ECommonActionTypes]
-export type TCommonAction = ICommonDefaultAction | ISetActiveTabCommonAction
+export type TCommonAction = ICommonDefaultAction | ISetActiveTabCommonAction | IGenerateReportAction
 
 export interface ICommonDefaultAction {
     type: TCommonActionType
@@ -13,6 +13,10 @@ export interface ICommonDefaultAction {
 }
 export interface ISetActiveTabCommonAction extends ICommonDefaultAction{
     activeTab: number
+}
+export interface IGenerateReportAction extends ICommonDefaultAction {
+    months: Array<number>
+    userId: number
 }
 export interface ICommonState {
     loading: boolean

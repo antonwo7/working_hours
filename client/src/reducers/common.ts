@@ -1,5 +1,6 @@
-import { ICommonState, TCommonAction } from "../types/common";
-import { ECommonActionTypes } from "./types";
+import {ICommonState, TCommonAction} from "../types/common"
+import {ECommonActionTypes} from "./types"
+import {generateReportServerRequest} from "../functions/common"
 
 const initialState: ICommonState = {
     loading: false,
@@ -25,6 +26,17 @@ export default function common(state: ICommonState = initialState, action: TComm
 
         case ECommonActionTypes.COMMON__HIDE_LOADING: {
             return {...state, loading: false};
+        }
+
+        case ECommonActionTypes.COMMON__GENERATE_REPORT: {
+            if (!('months' in action && 'userId' in action)) return state
+
+            generateReportServerRequest(action.months, action.userId, (response: { result: boolean, fileUrl: string }) => {
+                if (response.result && response.fileUrl) {
+                    action.callback && action.callback(response.fileUrl)
+                }
+            })
+            return state;
         }
 
         case ECommonActionTypes.COMMON__ACTIVE_TAB_CHANGING: {

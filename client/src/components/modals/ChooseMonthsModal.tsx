@@ -5,8 +5,8 @@ import Button from "../common/elements/Button";
 import {IAddUserModalState, IUser} from "../../types/users";
 import {getMonthName} from "../../functions/days";
 
-class ChooseMonthsModal extends Component<{ executeHandle: Function, closeHandle: Function }, { months: Array<number> }> {
-    constructor(props: { executeHandle: Function, closeHandle: Function }) {
+class ChooseMonthsModal extends Component<{ executeHandle: Function, closeHandle: Function, userId: number }, { months: Array<number> }> {
+    constructor(props: { executeHandle: Function, closeHandle: Function, userId: number }) {
         super(props)
 
         this.state = {
@@ -37,7 +37,7 @@ class ChooseMonthsModal extends Component<{ executeHandle: Function, closeHandle
                         <div className="px-6 py-6 lg:px-8">
                             <form className="space-y-2" action="#">
                                 {Array.from(Array(12)).map((_, i: number) => (
-                                    <div>
+                                    <div key={i}>
                                         <label>
                                             <input id={`month-checkbox-${i}`} type="checkbox" className="h-4 mr-3" checked={this.state.months.includes(i + 1)} onChange={() => this.monthChoose(i + 1)} />
                                             {getMonthName(i + 1)}

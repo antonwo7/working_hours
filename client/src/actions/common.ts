@@ -1,5 +1,5 @@
 import { ECommonActionTypes } from "../reducers/types";
-import { ICommonDefaultAction, ISetActiveTabCommonAction } from "../types/common";
+import {ICommonDefaultAction, IGenerateReportAction, ISetActiveTabCommonAction} from "../types/common";
 
 export function showLoadingAction(): ICommonDefaultAction {
     return {
@@ -29,5 +29,14 @@ export function showCompanyModalAction(): ICommonDefaultAction {
 export function hideCompanyModalAction(): ICommonDefaultAction {
     return {
         type: ECommonActionTypes.COMMON__HIDE_COMPANY_MODAL,
+    }
+}
+
+export function generateReportAction(months: Array<number>, userId: number, callback?: Function): IGenerateReportAction {
+    return {
+        type: ECommonActionTypes.COMMON__GENERATE_REPORT,
+        months,
+        userId,
+        callback
     }
 }

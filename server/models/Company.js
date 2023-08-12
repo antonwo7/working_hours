@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const { dbInit } = require('../services/BDService')
 
 const companyInit = async () => {

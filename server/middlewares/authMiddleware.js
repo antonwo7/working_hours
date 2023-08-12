@@ -20,6 +20,9 @@ class AuthMiddleWare {
         }
 
         const token = req.headers.authorization.split(" ")[1];
+        if (!token) {
+            return res.status(200).json({ result: false, message: 'Empty token' })
+        }
 
         const authUser = await authService.validateToken(token, User, Role)
         if (!authUser) {

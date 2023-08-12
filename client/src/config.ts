@@ -13,4 +13,6 @@ export const removeDayAPIUrl = process.env.REACT_APP_API_URL + 'day/remove_day'
 
 export const editCompanyAPIUrl = process.env.REACT_APP_API_URL + 'company/edit_company'
 
+export const generateReportAPIUrl = process.env.REACT_APP_API_URL + 'report/generate_report'
+
 export const adminRole = 'ADMIN'

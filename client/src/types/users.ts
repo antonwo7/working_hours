@@ -39,4 +39,5 @@ export interface IUserProps {
     addUserAction: Function
     editUserAction?: Function
     userList: Array<IUser>
+    generateReportAction: Function
 }

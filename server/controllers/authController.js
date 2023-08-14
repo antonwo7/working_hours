@@ -89,6 +89,9 @@ class authController extends Controller {
             this.error(res, e)
         }
     }
+    test = async (req, res) => {
+        return res.status(200).json({ result: false, message: 'testss' })
+    }
 
     tokenValidation = async (req, res) => {
         try {

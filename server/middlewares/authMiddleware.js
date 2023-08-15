@@ -1,37 +1,26 @@
-const authService = require("../services/AuthService");
-const userInit = require("../models/User");
-const roleInit = require("../models/Role");
-const {roleNames} = require("../config");
+const authService = require("../services/AuthService")
+const {sequelize} = require("../services/BDService");
+const {roleNames} = require("../config")
 
 class AuthMiddleWare {
-    constructor() {
-        userInit.then(User => this.User = User)
-        roleInit.then(Role => this.Role = Role)
-    }
-
     authValidation = async (req, res, next) => {
-        const User = this.User
-        const Role = this.Role
-
         if (!req.headers.authorization) {
-            return res
-                .status(403)
-                .send({ message: "Tu petición no tiene cabecera de autorización" });
+            return res.status(200).send({ message: "Tu petición no tiene cabecera de autorización" })
         }
 
-        const token = req.headers.authorization.split(" ")[1];
+        const token = req.headers.authorization.split(" ")[1]
         if (!token) {
             return res.status(200).json({ result: false, message: 'Empty token' })
         }
 
-        const authUser = await authService.validateToken(token, User, Role)
+        const authUser = await authService.validateToken(token)
         if (!authUser) {
             return res.status(200).json({ result: false, message: 'User unknown' })
         }
 
         req.authUser = authUser
 
-        next();
+        next()
     }
 
     adminValidation = async (req, res, next) => {
@@ -39,7 +28,7 @@ class AuthMiddleWare {
             return res.status(200).json({ result: false, message: 'Token empty' })
         }
 
-        const token = req.headers.authorization.split(" ")[1];
+        const token = req.headers.authorization.split(" ")[1]
 
         const tokenData = authService.decodeToken(token)
         if (!tokenData) {
@@ -54,7 +43,7 @@ class AuthMiddleWare {
             return res.status(200).json({ result: false, message: 'Access denied' })
         }
 
-        next();
+        next()
     }
 }
 

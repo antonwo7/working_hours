@@ -1,20 +1,13 @@
 const {getDates, dateFormat, isWeekend} = require("../functions/days")
-
-const {border, fillBorder} = require("./SheetService")
-
 const ExcelJS = require("exceljs")
-const userInit = require("../models/User");
-const roleInit = require("../models/Role");
-const dayInit = require("../models/Day");
 const config = require("../config")
 const date = require('date-and-time')
-const {tableHeaderStyle, tableCellStyle} = require("./SheetService")
-const {addFunctions} = require("./SheetService");
+const {tableCellStyle} = require("./SheetService")
+const fs = require('fs')
+const {promisify} = require('bluebird')
+const libre = require('libreoffice-convert')
 
 class ReportService {
-    constructor() {
-    }
-
     prepareReport = async () => {
         const workbook = new ExcelJS.Workbook()
         await workbook.xlsx.readFile(config.paths.reportTemplate)
@@ -51,12 +44,12 @@ class ReportService {
             this.setWorksheet(month)
         })
 
-        return await this.saveReport()
+        const excelReportFileName = await this.saveExcelReport()
+        return await this.savePDFReport(excelReportFileName)
     }
 
     setWorksheet = (dayMonth) => {
         const dayList = this.days[dayMonth]
-
         const monthSheet = this.workbook.worksheets[dayMonth - 1]
 
         monthSheet.getCell('C2').value = this.company.name
@@ -178,7 +171,7 @@ class ReportService {
 
     }
 
-    saveReport = async () => {
+    saveExcelReport = async () => {
         for(let i = 0; i <= 11; i++) {
             if (!this.months.includes(i + 1)) {
                 await this.workbook.removeWorksheet(`table_${(i + 1)}`)
@@ -190,6 +183,24 @@ class ReportService {
         await this.workbook.xlsx.writeFile(config.paths.report + fileName)
 
         return fileName
+    }
+
+    savePDFReport = async (excelFileName) => {
+        try {
+            const excelFilePath = config.paths.report + excelFileName
+            const pdfFileName = excelFileName.replace('.xlsx', '.pdf')
+            const pdfFilePath = config.paths.report + pdfFileName
+            const libreConvert = promisify(libre.convert)
+            const data = await fs.promises.readFile(excelFilePath)
+            const pdfFile = await libreConvert(data, '.pdf', undefined)
+            await fs.promises.writeFile(pdfFilePath, pdfFile)
+
+            return pdfFileName
+
+        } catch (e) {
+            console.log(e)
+            return false
+        }
     }
 }
 

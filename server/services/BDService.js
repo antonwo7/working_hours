@@ -2,15 +2,26 @@ require('dotenv').config()
 const { Sequelize } = require('sequelize')
 
 class BDService {
-    static async databaseInit () {
-        console.log('databaseInit')
-        const sequelize = new Sequelize(process.env.DATABASE, process.env.LOGIN, process.env.PASSWORD, {
+    sequelize = null
+
+    constructor() {
+        console.log('BDService constructor')
+        this.sequelize = new Sequelize(process.env.DATABASE, process.env.LOGIN, process.env.PASSWORD, {
             host: process.env.HOST,
             dialect: 'mysql'
-        });
-        await sequelize.authenticate()
-        return sequelize
+        })
+    }
+
+    dbConnect = async () => {
+        console.log('BDService dbConnect')
+        if (!this.sequelize) return;
+        await this.sequelize.authenticate()
+    }
+
+    dbClose = async () => {
+        console.log('BDService dbClose')
+        await this.sequelize.close()
     }
 }
 
-module.exports = { dbInit: BDService.databaseInit() }
+module.exports = new BDService()

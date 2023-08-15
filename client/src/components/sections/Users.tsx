@@ -72,12 +72,13 @@ class Users extends Component<IUserProps, { loading: boolean, adding: boolean, e
         this.props.removeUserAction(id)
     }
 
-    generatePDF = (months: Array<number>) => {
+    generatePDF = (months: Array<number>, callback: Function) => {
         this.setState({ monthsChoosing: true })
         if (!this.state.reportingUser) return;
 
         this.props.generateReportAction(months, this.state.reportingUser, (reportUrl: string) => {
             fileDownload(reportUrl)
+            callback && callback()
         } )
     }
 

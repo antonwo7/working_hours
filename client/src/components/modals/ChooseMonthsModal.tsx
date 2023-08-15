@@ -1,21 +1,21 @@
 import React, {Component} from 'react'
 import CloseIcon from "../common/icons/CloseIcon";
-import Input from "../common/elements/Input";
 import Button from "../common/elements/Button";
-import {IAddUserModalState, IUser} from "../../types/users";
 import {getMonthName} from "../../functions/days";
 
-class ChooseMonthsModal extends Component<{ executeHandle: Function, closeHandle: Function, userId: number }, { months: Array<number> }> {
+class ChooseMonthsModal extends Component<{ executeHandle: Function, closeHandle: Function, userId: number }, { months: Array<number>, generating: boolean }> {
     constructor(props: { executeHandle: Function, closeHandle: Function, userId: number }) {
         super(props)
 
         this.state = {
-            months: []
+            months: [],
+            generating: false
         }
     }
 
     execute = () => {
-        this.props.executeHandle(this.state.months)
+        this.setState({ generating: true })
+        this.props.executeHandle(this.state.months, () => this.setState({ generating: false }))
     }
 
     monthChoose(i: number) {
@@ -45,7 +45,7 @@ class ChooseMonthsModal extends Component<{ executeHandle: Function, closeHandle
                                     </div>
                                 ))}
                                 <div className="mb-4 mt-3">
-                                    <Button type="button" label="Generar PDF" onClick={() => this.execute()} />
+                                    <Button type="button" label="Generar PDF" onClick={() => this.execute()} loading={this.state.generating} />
                                 </div>
                             </form>
                         </div>

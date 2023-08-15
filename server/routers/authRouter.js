@@ -2,7 +2,8 @@ const Router = require('express')
 const cors = require('cors')
 const router = new Router()
 const authController = require('../controllers/authController')
-const { check } = require('express-validator')
+const {check} = require('express-validator')
+const {dbConnect, dbClose} = require('../services/BDService')
 
 router.use(cors())
 
@@ -21,7 +22,5 @@ router.post('/login', [
 router.post('/validation', [
     check('token', 'Token error').notEmpty()
 ], authController.tokenValidation)
-router.get('/test', [
-], authController.test)
 
 module.exports = router

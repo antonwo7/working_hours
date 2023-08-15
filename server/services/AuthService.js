@@ -1,16 +1,10 @@
 const jwt = require('jsonwebtoken')
-const { secret, tokenExpiresIn } = require('../config')
+const {secret, tokenExpiresIn} = require('../config')
 const moment = require('moment')
-const userInit = require("../models/User");
-const roleInit = require("../models/Role");
-const dayInit = require("../models/Day");
+const User = require("../models/User")
+const Role = require("../models/Role")
 
 class AuthService {
-    constructor() {
-        userInit.then(User => this.User = User)
-        roleInit.then(Role => this.Role = Role)
-    }
-
     generateToken = (id, role) => {
         return jwt.sign({ id, role }, secret, { expiresIn: tokenExpiresIn })
     }
@@ -24,21 +18,25 @@ class AuthService {
     }
 
     validateToken = async (token) => {
-        const User = this.User
-        const Role = this.Role
+        try {
+            const tokenData = this.decodeToken(token)
+            if (!tokenData || !tokenData.id || !tokenData.role) return false
+            if (tokenData.exp <= moment().unix()) return false
 
-        const tokenData = this.decodeToken(token)
-        if (!tokenData || !tokenData.id || !tokenData.role) return false
+            const user = await User.findOne({
+                raw: true,
+                where: {id: tokenData.id},
+                attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code']
+            })
+            if (!user) return false
 
-        if (tokenData.exp <= moment().unix()) return false
+            const userRole = await Role.findOne({raw: true, where: {name: tokenData.role}, attributes: ['name']})
+            if (!userRole) return false
 
-        const user = await User.findOne({ raw: true, where: { id: tokenData.id }, attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
-        if (!user) return false
-
-        const userRole = await Role.findOne({ raw: true, where: { name: tokenData.role }, attributes: ['name'] })
-        if (!userRole) return false
-
-        return { ...user, role: tokenData.role }
+            return {...user, role: tokenData.role}
+        } catch (e) {
+            return typeof e == "boolean" ? e : false
+        }
     }
 }
 

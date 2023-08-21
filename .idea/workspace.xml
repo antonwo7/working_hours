@@ -12,36 +12,22 @@
   <component name="ChangeListManager">
     <list default="true" id="b70e8a3b-b920-429c-a390-55fefe3003b9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/modals/ChooseMonthsModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/modals/ChooseMonthsModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/sections/Users.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/sections/Users.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/Controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/Controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.env" beforeDir="false" afterPath="$PROJECT_DIR$/client/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/common.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/modals/AddUserModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/modals/AddUserModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reducers/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/types/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/common.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/types/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/types/users.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.env" beforeDir="false" afterPath="$PROJECT_DIR$/server/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/authController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/companyController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/companyController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/dayController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/dayController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/reportController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/reportController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/userController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691877248148.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691877285252.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691877308778.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691877734542.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691877764573.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691878013757.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691878359349.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691878368913.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691878395490.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691878685271.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691878777107.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/report-1691878821706.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/files/template.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/server/files/template.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/middlewares/authMiddleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/middlewares/authMiddleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/Company.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/Company.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/Day.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/Day.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/Role.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/Role.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/functions/days.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/functions/days.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/User.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routers/authRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routers/authRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routers/reportRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routers/reportRouter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/services/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/services/AuthService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/services/BDService.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/services/BDService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/services/ReportService.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/services/ReportService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +109,8 @@
       <workItem from="1691098837448" duration="8671000" />
       <workItem from="1691256735785" duration="11000" />
       <workItem from="1691261921711" duration="153199000" />
-      <workItem from="1692030098273" duration="18600000" />
+      <workItem from="1692030098273" duration="19687000" />
+      <workItem from="1692606411780" duration="7223000" />
     </task>
     <servers />
   </component>
@@ -163,10 +150,10 @@
       <screen x="0" y="0" width="3002" height="1210" />
     </state>
     <state width="2959" height="161" key="GridCell.Tab.0.right/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691877830640" />
-    <state x="789" y="362" width="583" height="534" key="find.popup" timestamp="1691852127058">
+    <state x="789" y="362" width="583" height="534" key="find.popup" timestamp="1692608122129">
       <screen x="0" y="0" width="3002" height="1210" />
     </state>
-    <state x="789" y="362" width="583" height="534" key="find.popup/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1691852127058" />
+    <state x="789" y="362" width="583" height="534" key="find.popup/0.0.3002.1210/-1920.112.1676.895@0.0.3002.1210" timestamp="1692608122129" />
     <state x="1157" y="283" key="run.anything.popup" timestamp="1691875099150">
       <screen x="0" y="0" width="3002" height="1210" />
     </state>

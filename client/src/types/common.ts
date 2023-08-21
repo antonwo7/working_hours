@@ -12,7 +12,7 @@ export interface ICommonDefaultAction {
     callback?: Function | undefined
 }
 export interface ISetActiveTabCommonAction extends ICommonDefaultAction{
-    activeTab: number
+    activeTab: string
 }
 export interface IGenerateReportAction extends ICommonDefaultAction {
     months: Array<number>

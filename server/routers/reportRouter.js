@@ -16,4 +16,6 @@ router.post('/generate_report', [
     check('months', 'Month error').notEmpty().isArray(),
 ], reportController.generateReport)
 
+router.get('/download/:filename', [], reportController.downloadReport)
+
 module.exports = router

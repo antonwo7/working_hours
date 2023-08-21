@@ -13,7 +13,7 @@ export function hideLoadingAction(): ICommonDefaultAction {
     }
 }
 
-export function setActiveTabAction(activeTab: number): ISetActiveTabCommonAction {
+export function setActiveTabAction(activeTab: string): ISetActiveTabCommonAction {
     return {
         type: ECommonActionTypes.COMMON__ACTIVE_TAB_CHANGING,
         activeTab: activeTab

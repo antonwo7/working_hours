@@ -5,6 +5,7 @@ const {validationResult} = require('express-validator')
 const authService = require('../services/AuthService')
 const User = require("../models/User")
 const Role = require("../models/Role")
+const {paramToDate} = require("../functions/days");
 const {sequelize} = require("../services/BDService");
 const {roleNames} = require('../config')
 
@@ -22,7 +23,7 @@ class userController extends Controller {
                 return this.unsuccess(res,{ message: 'User unknown' })
             }
 
-            const users = await User.findAll({ raw: true, attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
+            const users = await User.findAll({ raw: true, attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code', 'date'] })
             return this.success(res,{ users: users })
 
         } catch (e) {
@@ -38,6 +39,7 @@ class userController extends Controller {
             }
 
             const { username, password, name, nif, naf, contract_code } = req.body
+            const date = req.body.date ? paramToDate(req.body.date) : null
             const candidate = await User.findOne({ where: { username }, attributes: ['id', 'username'] })
             if (candidate) {
                 return this.unsuccess(res,{ message: "User exist", candidate })
@@ -49,9 +51,9 @@ class userController extends Controller {
                 return this.unsuccess(res,{ message: "Role not exist" })
             }
 
-            await User.create({ username, password: hashedPassword, role: userRole.id, name, nif, naf, contract_code  })
+            await User.create({ username, password: hashedPassword, role: userRole.id, name, nif, naf, contract_code, date  })
 
-            const users = await User.findAll({ raw: true, attributes: ['id', 'username', 'name', 'nif', 'naf', 'contract_code'] })
+            const users = await User.findAll({ raw: true, attributes: ['id', 'username', 'name', 'nif', 'naf', 'contract_code', 'date'] })
 
             return this.success(res,{ users: users })
 
@@ -76,7 +78,7 @@ class userController extends Controller {
 
             await User.destroy({ where: { id } })
 
-            const users = await User.findAll({ raw: true, attributes: ['id', 'username', 'name', 'nif', 'naf', 'contract_code'] })
+            const users = await User.findAll({ raw: true, attributes: ['id', 'username', 'name', 'nif', 'naf', 'contract_code', 'date'] })
 
             return this.success(res,{ users: users })
 
@@ -92,21 +94,23 @@ class userController extends Controller {
                 return this.unsuccess({ message: 'User editing error', errors: errors })
             }
 
-            const { id, username, password, name, nif, naf, contract_code } = req.body
-
+            const { id, username, password, name, nif, naf, contract_code, date } = req.body
+            // console.log('req.body.date', req.body.date)
+            // const date = req.body.date ? paramToDate(req.body.date) : null
+            // console.log('date', date)
             const candidate = await User.findOne({ where: { id }, attributes: ['id'] })
             if (!candidate) {
                 return this.unsuccess(res,{ message: "User not exist", candidate })
             }
 
-            const newUserData = { username, name, nif, naf, contract_code }
+            const newUserData = { username, name, nif, naf, contract_code, date }
 
             if (password) {
                 newUserData.password = bcrypt.hashSync(password, 7)
             }
 
             await User.update( {  ...newUserData }, { where: { id } })
-            const users = await User.findAll({ raw: true, attributes: ['id', 'username', 'name', 'nif', 'naf', 'contract_code'] })
+            const users = await User.findAll({ raw: true, attributes: ['id', 'username', 'name', 'nif', 'naf', 'contract_code', 'date'] })
 
             return this.success(res,{ users: users })
 

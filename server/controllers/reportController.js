@@ -48,13 +48,22 @@ class reportController extends Controller {
                 return this.unsuccess(res, {})
             }
 
-            const fileFullUrl = paths.reportDirUrl + fileName
+            const fileFullUrl = paths.reportRouterDirUrl + fileName
 
             return this.success(res,{ fileUrl: fileFullUrl })
 
         } catch (e) {
             this.error(res, e)
         }
+    }
+
+    downloadReport = (req, res) => {
+        const { filename } = req.params
+        if (!filename) {
+            return this.unsuccess(res, {message: 'File is empty'})
+        }
+
+        res.download(paths.report + filename)
     }
 }
 

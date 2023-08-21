@@ -9,6 +9,7 @@ module.exports = {
     },
     paths: {
         report: path.resolve(__dirname) + "/files/",
+        reportRouterDirUrl: "http://localhost:5002/report/download/",
         reportDirUrl: "https://ilusiak.loc/horario/server/files/",
         reportTemplate: path.resolve(__dirname) + "/files/template.xlsx"
     }

@@ -1,10 +1,10 @@
 const {Op} = require('sequelize')
-
 const date = require('date-and-time')
 const {sequelize} = require('../services/BDService')
 const Controller = require('../controllers/Controller')
 const {validationResult} = require('express-validator')
 const Day = require("../models/Day")
+const {paramToDate} = require("../functions/days");
 
 
 class dayController extends Controller {
@@ -47,11 +47,7 @@ class dayController extends Controller {
             const { day } = req.body
             const authUser = req.authUser
 
-            const dayDate = new Date()
-            dayDate.setDate(parseInt(day.split('-')[0]))
-            dayDate.setMonth(parseInt(day.split('-')[1]) - 1)
-            dayDate.setFullYear(parseInt(day.split('-')[2]))
-            dayDate.setHours(12, 0, 0)
+            const dayDate = paramToDate(day)
 
             const candidateDay = await Day.findOne({ where: { user_id: authUser.id, date: dayDate }, attributes: ['id'] })
             if (candidateDay) {

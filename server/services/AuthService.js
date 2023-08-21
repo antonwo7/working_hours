@@ -26,7 +26,7 @@ class AuthService {
             const user = await User.findOne({
                 raw: true,
                 where: {id: tokenData.id},
-                attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code']
+                attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code', 'date']
             })
             if (!user) return false
 

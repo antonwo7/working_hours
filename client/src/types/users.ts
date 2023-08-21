@@ -27,9 +27,10 @@ export interface IUser {
     naf?: string
     contract_code?: string,
     role?: string
+    date?: string
 }
 export interface IAddUserModalState {
-    id?: number, name: string, username: string, password: string, nif: string, naf: string, contract_code: string
+    id?: number, name: string, username: string, password: string, nif: string, naf: string, contract_code: string, date?: string
 }
 export interface IUsersState {
     userList: Array<IUser>

@@ -6,6 +6,7 @@ const {tableCellStyle} = require("./SheetService")
 const fs = require('fs')
 const {promisify} = require('bluebird')
 const libre = require('libreoffice-convert')
+const {getMonthName} = require("../functions/days");
 
 class ReportService {
     prepareReport = async () => {
@@ -61,6 +62,9 @@ class ReportService {
         monthSheet.getCell('C5').value = this.authUser.nif
         monthSheet.getCell('I4').value = this.authUser.naf
         monthSheet.getCell('K4').value = this.authUser.contract_code
+        monthSheet.getCell('G5').value = this.authUser.date
+
+        monthSheet.getCell('A6').value = 'Período de cotización del mes: ' + getMonthName(dayMonth) + ' 2023'
 
         try {
             monthSheet.mergeCells('A8:A9')
@@ -107,6 +111,7 @@ class ReportService {
 
         const dates = getDates(dayMonth)
 
+        let hoursTotal = 0
         let initialIndex = 10
         dates.forEach((d, i) => {
             const index = initialIndex + i
@@ -139,12 +144,13 @@ class ReportService {
                 return d.date.getDate() === dayDate.getDate() && d.date.getMonth() === dayDate.getMonth() && d.date.getFullYear() === dayDate.getFullYear()
             }).length) {
                 monthSheet.getCell(`J${index}`).value = 'Firmado'
+                hoursTotal += 8
             }
         })
 
         initialIndex = initialIndex + dates.length + 1
         monthSheet.getRow(initialIndex).height = 21
-        monthSheet.getRow(initialIndex).values = ['Total', '168h', '', '', '', '', '', '', '', '']
+        monthSheet.getRow(initialIndex).values = ['Total', `${hoursTotal}h`, '', '', '', '', '', '', '', '']
 
         monthSheet.getCell(`A${initialIndex}`).style = tableCellStyle()
         monthSheet.getCell(`B${initialIndex}`).style = tableCellStyle()
@@ -158,16 +164,16 @@ class ReportService {
         monthSheet.getCell(`J${initialIndex}`).style = tableCellStyle()
         initialIndex = initialIndex + 2
         monthSheet.mergeCells(`A${initialIndex}:D${initialIndex}`)
-        monthSheet.mergeCells(`E${initialIndex}:J${initialIndex}`)
+        // monthSheet.mergeCells(`E${initialIndex}:J${initialIndex}`)
 
         monthSheet.getCell(`A${initialIndex}`).style = tableCellStyle()
         monthSheet.getCell(`D${initialIndex}`).style = tableCellStyle()
-        monthSheet.getCell(`J${initialIndex}`).style = tableCellStyle()
+        // monthSheet.getCell(`J${initialIndex}`).style = tableCellStyle()
 
-        monthSheet.getCell(`E${initialIndex}`).style = tableCellStyle()
+        // monthSheet.getCell(`E${initialIndex}`).style = tableCellStyle()
 
         monthSheet.getCell(`A${initialIndex}`).value = 'Firma representante de la Empresa'
-        monthSheet.getCell(`H${initialIndex}`).value = ' Firma trabajador/a'
+        // monthSheet.getCell(`H${initialIndex}`).value = ' Firma trabajador/a'
 
     }
 

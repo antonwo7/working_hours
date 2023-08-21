@@ -3,6 +3,7 @@ import * as authActions from './../actions/auth'
 import * as daysActions from './../actions/days'
 import * as usersActions from './../actions/users'
 import * as companiesActions from './../actions/companies'
+import * as commonActions from './../actions/common'
 import store from './index'
 import { authCheckServerRequest, getTokenClientRequest, loginServerRequest, removeTokenClientRequest, saveTokenClientRequest } from "../functions/auth"
 import {IAuthState, ICheckLoggedUserAction, TAuthAction} from "../types/auth";
@@ -26,6 +27,7 @@ export default function auth(state = initialState, action: TAuthAction): IAuthSt
                 loginServerRequest(action.username, action.password, (response: { user: IUser, result: boolean, token: string | null, days: Array<IDay>, users: Array<IUser>, companies: Array<ICompany> }) => {
                     if (response.result && response.token && response.user){
                         saveTokenClientRequest(response.token)
+                        store.dispatch(commonActions.setActiveTabAction('main'))
                         store.dispatch(authActions.setLoggedAction(response.user))
                         store.dispatch(daysActions.setDaysAction(response.days))
                         store.dispatch(usersActions.setUsersAction(response.users))

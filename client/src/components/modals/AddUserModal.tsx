@@ -15,7 +15,8 @@ class AddUserModal extends Component<{addHandler: Function, closeHandler: Functi
             password: '',
             nif: user?.nif ?? '',
             naf: user?.naf ?? '',
-            contract_code: user?.contract_code ?? ''
+            contract_code: user?.contract_code ?? '',
+            date: user?.date ?? ''
         }
     }
 
@@ -51,6 +52,9 @@ class AddUserModal extends Component<{addHandler: Function, closeHandler: Functi
                                 </div>
                                 <div className="mb-4 flex">
                                     <Input type="text" value={this.state.naf} title="NAF" onChange={(value: string) => this.setState({naf: value}) } />
+                                </div>
+                                <div className="mb-4 flex">
+                                    <Input type="date" value={this.state.date} title="Fecha de alta" onChange={(value: string) => this.setState({date: value}) } />
                                 </div>
                                 <div className="mb-4 flex">
                                     <Input type="text" value={this.state.contract_code} title="Numero de contrato" onChange={(value: string) => this.setState({contract_code: value}) } />

@@ -10,6 +10,7 @@ const User = sequelize.define('User', {
     nif: { type: DataTypes.STRING, allowNull: false },
     naf: { type: DataTypes.STRING, allowNull: false },
     contract_code: { type: DataTypes.STRING, allowNull: false },
+    date: { type: DataTypes.DATE, allowNull: false },
 }, {
     timestamps: false
 })

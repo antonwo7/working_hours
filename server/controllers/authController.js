@@ -18,7 +18,7 @@ class authController extends Controller {
                 return this.unsuccess(res, { message: 'Registration error', errors: errors })
             }
 
-            const { username, password, name, nif, naf, contract_code } = req.body
+            const { username, password, name, nif, naf, contract_code, date } = req.body
             const candidate = await User.findOne({ where: { username }, attributes: ['id', 'username'] })
             if (candidate) {
                 return this.unsuccess(res,{ message: "User exist", candidate })
@@ -26,7 +26,7 @@ class authController extends Controller {
 
             const hashedPassword = bcrypt.hashSync(password, 7)
             const userRole = await Role.findOne({ where: { name: roleNames.user }, attributes: ['id', 'name'] })
-            User.create({ username, password: hashedPassword, role: userRole.id, name, nif, naf, contract_code  })
+            User.create({ username, password: hashedPassword, role: userRole.id, name, nif, naf, contract_code, date  })
 
             return this.success(res,{ message: 'User registered' })
 
@@ -38,7 +38,7 @@ class authController extends Controller {
     login = async (req, res) => {
         try {
             const { username, password } = req.body
-            const user = await User.findOne({ raw: true, where: { username }, attributes: ['id', 'username', 'password', 'role', 'name', 'nif', 'naf', 'contract_code'] })
+            const user = await User.findOne({ raw: true, where: { username }, attributes: ['id', 'username', 'password', 'role', 'name', 'nif', 'naf', 'contract_code', 'date'] })
             if (!user) {
                 return this.unsuccess(res,{ message: 'User not found' })
             }
@@ -55,7 +55,7 @@ class authController extends Controller {
             const days = await Day.findAll({ where: { user_id: user.id }, attributes: ['id', 'date'] })
 
             const users = userRoleName === roleNames.admin
-                ? await User.findAll({ attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
+                ? await User.findAll({ attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code', 'date'] })
                 : []
 
             const companies = userRoleName === roleNames.admin
@@ -87,7 +87,7 @@ class authController extends Controller {
             const days = await Day.findAll({ where: { user_id: authUser.id }, attributes: ['id', 'date'] })
 
             const users = authUser.role === roleNames.admin
-                ? await User.findAll({ attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code'] })
+                ? await User.findAll({ attributes: ['id', 'username', 'role', 'name', 'nif', 'naf', 'contract_code', 'date'] })
                 : []
 
             const companies = authUser.role === roleNames.admin
